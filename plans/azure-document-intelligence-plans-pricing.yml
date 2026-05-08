@@ -5,7 +5,7 @@ provider: Azure AI Document Intelligence
 providerId: azure-document-intelligence
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - AI
 - Document AI
@@ -13,29 +13,209 @@ tags:
 - IDP
 - OCR
 - Plans
-description: Placeholder plans/pricing artifact for Azure AI Document Intelligence. Replace with real published pricing once
-  the pipeline researches the provider's plans page.
-notes: Initial scaffold — plans/pricing have not yet been reconciled.
+- Pricing
+description: >-
+  Azure AI Document Intelligence offers a Free tier (F0) and a pay-as-you-go
+  Standard tier (S0) with per-page rates that vary by model. Commitment tiers
+  unlock prepay discounts for larger workloads. Billing is per page processed,
+  with separate rates for OCR (Read), Prebuilt models, Custom Classification
+  and Custom Extraction, plus add-on capabilities and Query Fields.
+notes: >-
+  Prices reflect the public azure.microsoft.com/pricing page as of 2026-05-08.
+  Rates may vary by Azure region. Free tier excludes premium features.
 sources:
-- https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
+- https://azure.microsoft.com/en-us/pricing/details/document-intelligence/
+- https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 plans:
-- id: azure-document-intelligence-default
-  name: To Be Reconciled
-  type: enterprise
-  description: Initial scaffold; replace with provider plan tiers once pricing is reconciled.
+- id: azure-doc-intel-free
+  name: Free (F0)
+  type: free
+  description: First 500 pages per month at no charge (excludes premium add-ons).
   entries:
-  - label: API Access
-    name: api_access
-    type: flat
-    metric: varies
-    limit: -1
-    timeFrame: usage
+  - label: Included pages
+    name: free_pages
+    type: tier
+    metric: pages/month
+    limit: 500
+    timeFrame: month
     geo: global
     unit: 1
-    price: see https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
+    price: 0
     userMultiplied: false
-  elements:
-  - name: Pending Reconciliation
+- id: azure-doc-intel-standard
+  name: Standard (S0) — Pay-As-You-Go
+  type: payAsYouGo
+  description: Pay-per-page rates. Read $1.50/1K (drops to $0.60/1K above 1M); Prebuilt $10/1K; Custom Classification $3/1K; Custom Extraction & Custom Generative Extraction $30/1K; Add-Ons (High Resolution, Font, Formula) $6/1K; Query Fields $10/1K.
+  entries:
+  - label: Read (OCR)
+    name: read
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 1.50
+    currency: USD
+    userMultiplied: false
+  - label: Read (above 1M pages)
+    name: read_volume
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 0.60
+    currency: USD
+    userMultiplied: false
+  - label: Prebuilt models
+    name: prebuilt
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 10
+    currency: USD
+    userMultiplied: false
+  - label: Custom classification
+    name: custom_classification
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 3
+    currency: USD
+    userMultiplied: false
+  - label: Custom extraction & Custom Generative Extraction
+    name: custom_extraction
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 30
+    currency: USD
+    userMultiplied: false
+  - label: Add-ons (High Resolution, Font, Formula)
+    name: add_ons
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 6
+    currency: USD
+    userMultiplied: false
+  - label: Query Fields
+    name: query_fields
+    type: usage
+    metric: pages
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000
+    price: 10
+    currency: USD
+    userMultiplied: false
+  - label: Model training (after first 10h free)
+    name: training_hours
+    type: usage
+    metric: hour
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 3
+    currency: USD
+    userMultiplied: false
+- id: azure-doc-intel-commitment
+  name: Commitment Tiers (Custom Extraction)
+  type: subscription
+  description: Custom-extraction monthly commitments — 20K pages $540/mo ($27/1K) ... 500K pages $10,500/mo ($21/1K).
+  entries:
+  - label: 20K pages/month commitment
+    name: commitment_20k
+    type: flat
+    metric: month
+    limit: 20000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 540
+    currency: USD
+    userMultiplied: false
+  - label: 500K pages/month commitment
+    name: commitment_500k
+    type: flat
+    metric: month
+    limit: 500000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 10500
+    currency: USD
+    userMultiplied: false
+- id: azure-doc-intel-commitment-prebuilt
+  name: Commitment Tiers (Prebuilt)
+  type: subscription
+  description: Prebuilt commitment tiers — 20K pages $190/mo ... 500K pages $4,000/mo.
+  entries:
+  - label: 20K pages/month commitment
+    name: commitment_20k
+    type: flat
+    metric: month
+    limit: 20000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 190
+    currency: USD
+    userMultiplied: false
+  - label: 500K pages/month commitment
+    name: commitment_500k
+    type: flat
+    metric: month
+    limit: 500000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 4000
+    currency: USD
+    userMultiplied: false
+- id: azure-doc-intel-commitment-read
+  name: Commitment Tiers (Read)
+  type: subscription
+  description: Read commitment tiers — 500K pages $375/mo ... 8M pages $4,200/mo.
+  entries:
+  - label: 500K pages/month commitment
+    name: commitment_500k
+    type: flat
+    metric: month
+    limit: 500000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 375
+    currency: USD
+    userMultiplied: false
+  - label: 8M pages/month commitment
+    name: commitment_8m
+    type: flat
+    metric: month
+    limit: 8000000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 4200
+    currency: USD
+    userMultiplied: false
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -3,7 +3,12 @@ url: https://raw.githubusercontent.com/api-evangelist/azure-document-intelligenc
 name: Azure AI Document Intelligence
 x-type: company
 description: >-
-  Azure AI Document Intelligence (formerly Form Recognizer) is Microsoft's cloud document understanding service with prebuilt models for invoices, receipts, IDs, and custom extractors.
+  Azure AI Document Intelligence (formerly Form Recognizer) is Microsoft's cloud
+  document understanding service. It exposes prebuilt models for invoices,
+  receipts, IDs, business cards, tax forms and contracts, plus a layout/OCR
+  Read model and a Custom-model framework for fine-tuned extraction. The 2024-
+  11-30 GA REST API is the current stable surface; preview APIs add Custom
+  Generative Extraction.
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - AI
@@ -11,13 +16,53 @@ tags:
   - Azure
   - IDP
   - OCR
+  - Microsoft
+  - REST
 created: '2026-05-08'
 modified: '2026-05-08'
 specificationVersion: '0.19'
-apis: []
+apis:
+  - aid: azure-doc-intel:rest
+    name: Azure AI Document Intelligence REST API
+    description: >-
+      REST API for document Read (OCR), Layout, prebuilt models (Invoice,
+      Receipt, ID, Business Card, W2, Contract, Health Insurance Card etc.),
+      Custom Classifiers and Custom Extractors. Authenticated via Azure
+      subscription key or Microsoft Entra ID (formerly Azure AD).
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+    baseURL: https://<your-resource>.cognitiveservices.azure.com
+    tags:
+      - REST
+      - OCR
+      - Layout
+      - Custom Models
+      - Prebuilt Models
+      - Azure
+    properties:
+      - type: Documentation
+        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+      - type: APIReference
+        url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+      - type: OpenAPI
+        url: openapi/azure-document-intelligence-openapi.json
+      - type: OpenAPISource
+        url: https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+      - type: SDK
+        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+      - type: ServiceLimits
+        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 common:
   - type: Website
     url: https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: Pricing
+    url: https://azure.microsoft.com/en-us/pricing/details/document-intelligence/
+  - type: GitHub
+    url: https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: AzurePortal
+    url: https://portal.azure.com/
   - type: Plans
     url: plans/azure-document-intelligence-plans-pricing.yml
   - type: RateLimits

@@ -5,7 +5,7 @@ provider: Azure AI Document Intelligence
 providerId: azure-document-intelligence
 created: '2026-05-08'
 modified: '2026-05-08'
-reconciled: false
+reconciled: true
 tags:
 - AI
 - Document AI
@@ -15,21 +15,51 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: Placeholder rate-limit artifact for Azure AI Document Intelligence. Replace with real limits once researched.
-notes: Initial scaffold — limits have not yet been reconciled.
+description: >-
+  Azure AI Document Intelligence enforces tier-specific transactions per
+  second (TPS) ceilings. F0 (Free) is capped at 1 transaction per second; S0
+  (Standard) defaults to 15 TPS and can be raised on request via Azure
+  support. Per-document size caps and per-call page caps depend on model and
+  API version.
+notes: >-
+  TPS includes both submit (analyze) and result-polling calls. Document size
+  limit is 500 MB / 2,000 pages on S0 paid; F0 has lower caps. See Microsoft
+  Learn service-limits doc for current per-version caps.
 sources:
-- https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
+- https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- https://docs.azure.cn/en-us/ai-services/document-intelligence/service-limits
 responseCodes:
   throttled: 429
+headers:
+- name: Retry-After
+  description: Seconds to wait before retrying.
+- name: x-ms-ratelimit-remaining-requests
+  description: Remaining requests within current window (when present).
 limits:
-- name: Default
-  scope: account
-  metric: varies
-  limit: see provider documentation
-  notes: Pending reconciliation.
+- name: Free (F0) TPS
+  scope: resource
+  metric: tps
+  limit: 1
+  timeFrame: 1s
+- name: Standard (S0) TPS
+  scope: resource
+  metric: tps
+  limit: 15
+  timeFrame: 1s
+  notes: Default; can be increased via Azure support.
+- name: Maximum document size (Standard)
+  scope: request
+  metric: MB
+  limit: 500
+- name: Maximum pages per document (Standard)
+  scope: request
+  metric: pages
+  limit: 2000
 policies:
 - name: Backoff Strategy
-  description: Clients should implement exponential backoff with jitter and honor any Retry-After header.
+  description: Honor 429 with Retry-After; use exponential backoff. Polling for analyze-result should follow the documented Operation-Location header cadence.
+- name: Quota Increases
+  description: Submit Azure support ticket to raise TPS or training-job concurrency on S0.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
