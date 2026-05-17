@@ -1,7 +1,7 @@
 aid: azure-document-intelligence
 url: https://raw.githubusercontent.com/api-evangelist/azure-document-intelligence/refs/heads/main/apis.yml
 name: Azure AI Document Intelligence
-x-type: company
+kind: company
 description: >-
   Azure AI Document Intelligence (formerly Form Recognizer) is Microsoft's cloud
   document understanding service. It exposes prebuilt models for invoices,
