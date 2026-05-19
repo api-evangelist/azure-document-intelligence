@@ -1,0 +1,1151 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Document Intelligence (formerly Form Recognizer)
+  description: 'Document Intelligence (formerly Form Recognizer). 27 operations. Lead operation: Document Intelligence (formerly
+    Form Recognizer). Self-contained Naftiko capability covering one Azure Document Intelligence business surface.'
+  tags:
+  - Azure Document Intelligence
+  - Document Intelligence (formerly Form Recognizer)
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AZURE_DOCUMENT_INTELLIGENCE_API_KEY: AZURE_DOCUMENT_INTELLIGENCE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: azure-document-intelligence
+    baseUri: ''
+    description: Document Intelligence (formerly Form Recognizer) business capability. Self-contained, no shared references.
+    resources:
+    - name: documentClassifiers
+      path: /documentClassifiers
+      operations:
+      - name: documentclassifierslistclassifiers
+        method: GET
+        description: List all document classifiers.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documentClassifiers-classifierId
+      path: /documentClassifiers/{classifierId}
+      operations:
+      - name: documentclassifiersgetclassifier
+        method: GET
+        description: Gets detailed document classifier information.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: classifierId
+          in: path
+          type: string
+          description: Unique document classifier name.
+          required: true
+      - name: documentclassifiersdeleteclassifier
+        method: DELETE
+        description: Deletes document classifier.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: classifierId
+          in: path
+          type: string
+          description: Unique document classifier name.
+          required: true
+    - name: documentClassifiers-classifierId-analyzeResults-resultId
+      path: /documentClassifiers/{classifierId}/analyzeResults/{resultId}
+      operations:
+      - name: documentclassifiersgetclassifyresult
+        method: GET
+        description: Gets the result of document classifier.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: classifierId
+          in: path
+          type: string
+          description: Unique document classifier name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze operation result ID.
+          required: true
+    - name: documentClassifiers-classifierId}:analyze
+      path: /documentClassifiers/{classifierId}:analyze
+      operations:
+      - name: documentclassifiersclassifydocumentfromstream
+        method: POST
+        description: Classifies document with document classifier.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documentClassifiers-classifierId}:copyTo
+      path: /documentClassifiers/{classifierId}:copyTo
+      operations:
+      - name: documentclassifierscopyclassifierto
+        method: POST
+        description: Copies document classifier to the target resource, region, and classifierId.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: classifierId
+          in: path
+          type: string
+          description: Unique document classifier name.
+          required: true
+        - name: copyToRequest
+          in: body
+          type: string
+          description: Copy to request parameters.
+          required: true
+    - name: documentClassifiers:authorizeCopy
+      path: /documentClassifiers:authorizeCopy
+      operations:
+      - name: documentclassifiersauthorizeclassifiercopy
+        method: POST
+        description: Generates authorization to copy a document classifier to this location with
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: authorizeCopyRequest
+          in: body
+          type: string
+          description: Authorize copy request parameters.
+          required: true
+    - name: documentClassifiers:build
+      path: /documentClassifiers:build
+      operations:
+      - name: documentclassifiersbuildclassifier
+        method: POST
+        description: Builds a custom document classifier.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: buildRequest
+          in: body
+          type: string
+          description: Build request parameters.
+          required: true
+    - name: documentModels
+      path: /documentModels
+      operations:
+      - name: documentmodelslistmodels
+        method: GET
+        description: List all document models
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documentModels-modelId
+      path: /documentModels/{modelId}
+      operations:
+      - name: documentmodelsgetmodel
+        method: GET
+        description: Gets detailed document model information.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+      - name: documentmodelsdeletemodel
+        method: DELETE
+        description: Deletes document model.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+    - name: documentModels-modelId-analyzeBatchResults
+      path: /documentModels/{modelId}/analyzeBatchResults
+      operations:
+      - name: documentmodelslistanalyzebatchresults
+        method: GET
+        description: List batch document analysis results.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+    - name: documentModels-modelId-analyzeBatchResults-resultId
+      path: /documentModels/{modelId}/analyzeBatchResults/{resultId}
+      operations:
+      - name: documentmodelsgetanalyzebatchresult
+        method: GET
+        description: Gets the result of batch document analysis.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze batch operation result ID.
+          required: true
+      - name: documentmodelsdeleteanalyzebatchresult
+        method: DELETE
+        description: Mark the batch document analysis result for deletion.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze batch operation result ID.
+          required: true
+    - name: documentModels-modelId-analyzeResults-resultId
+      path: /documentModels/{modelId}/analyzeResults/{resultId}
+      operations:
+      - name: documentmodelsgetanalyzeresult
+        method: GET
+        description: Gets the result of document analysis.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze operation result ID.
+          required: true
+      - name: documentmodelsdeleteanalyzeresult
+        method: DELETE
+        description: Mark the result of document analysis for deletion.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze operation result ID.
+          required: true
+    - name: documentModels-modelId-analyzeResults-resultId-figures-figureId
+      path: /documentModels/{modelId}/analyzeResults/{resultId}/figures/{figureId}
+      operations:
+      - name: documentmodelsgetanalyzeresultfigure
+        method: GET
+        description: Gets the generated cropped image of specified figure from document analysis.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze operation result ID.
+          required: true
+        - name: figureId
+          in: path
+          type: string
+          description: Figure ID.
+          required: true
+    - name: documentModels-modelId-analyzeResults-resultId-pdf
+      path: /documentModels/{modelId}/analyzeResults/{resultId}/pdf
+      operations:
+      - name: documentmodelsgetanalyzeresultpdf
+        method: GET
+        description: Gets the generated searchable PDF output from document analysis.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: resultId
+          in: path
+          type: string
+          description: Analyze operation result ID.
+          required: true
+    - name: documentModels-modelId}:analyze
+      path: /documentModels/{modelId}:analyze
+      operations:
+      - name: documentmodelsanalyzedocumentfromstream
+        method: POST
+        description: Analyzes document with document model.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: documentModels-modelId}:analyzeBatch
+      path: /documentModels/{modelId}:analyzeBatch
+      operations:
+      - name: documentmodelsanalyzebatchdocuments
+        method: POST
+        description: Analyzes batch documents with document model.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: analyzeBatchRequest
+          in: body
+          type: string
+          description: Analyze batch request parameters.
+          required: true
+    - name: documentModels-modelId}:copyTo
+      path: /documentModels/{modelId}:copyTo
+      operations:
+      - name: documentmodelscopymodelto
+        method: POST
+        description: Copies document model to the target resource, region, and modelId.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: modelId
+          in: path
+          type: string
+          description: Unique document model name.
+          required: true
+        - name: copyToRequest
+          in: body
+          type: string
+          description: Copy to request parameters.
+          required: true
+    - name: documentModels:authorizeCopy
+      path: /documentModels:authorizeCopy
+      operations:
+      - name: documentmodelsauthorizemodelcopy
+        method: POST
+        description: Generates authorization to copy a document model to this location with
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: authorizeCopyRequest
+          in: body
+          type: string
+          description: Authorize copy request parameters.
+          required: true
+    - name: documentModels:build
+      path: /documentModels:build
+      operations:
+      - name: documentmodelsbuildmodel
+        method: POST
+        description: Builds a custom document analysis model.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: buildRequest
+          in: body
+          type: string
+          description: Build request parameters.
+          required: true
+    - name: documentModels:compose
+      path: /documentModels:compose
+      operations:
+      - name: documentmodelscomposemodel
+        method: POST
+        description: Creates a new document model from document types of existing document models.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: composeRequest
+          in: body
+          type: string
+          description: Compose request parameters.
+          required: true
+    - name: info
+      path: /info
+      operations:
+      - name: miscellaneousoperationsgetresourcedetails
+        method: GET
+        description: Return information about the current resource.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: operations
+      path: /operations
+      operations:
+      - name: miscellaneousoperationslistoperations
+        method: GET
+        description: Lists all operations.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: operations-operationId
+      path: /operations/{operationId}
+      operations:
+      - name: miscellaneousoperationsgetdocumentmodelbuildoperation
+        method: GET
+        description: Gets operation info.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: operationId
+          in: path
+          type: string
+          description: Operation ID
+          required: true
+  exposes:
+  - type: rest
+    namespace: azure-document-intelligence-rest
+    port: 8080
+    description: REST adapter for Document Intelligence (formerly Form Recognizer). One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/documentclassifiers
+      name: documentclassifiers
+      description: REST surface for documentClassifiers.
+      operations:
+      - method: GET
+        name: documentclassifierslistclassifiers
+        description: List all document classifiers.
+        call: azure-document-intelligence.documentclassifierslistclassifiers
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers/{classifierid}
+      name: documentclassifiers-classifierid
+      description: REST surface for documentClassifiers-classifierId.
+      operations:
+      - method: GET
+        name: documentclassifiersgetclassifier
+        description: Gets detailed document classifier information.
+        call: azure-document-intelligence.documentclassifiersgetclassifier
+        with:
+          classifierId: rest.classifierId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: documentclassifiersdeleteclassifier
+        description: Deletes document classifier.
+        call: azure-document-intelligence.documentclassifiersdeleteclassifier
+        with:
+          classifierId: rest.classifierId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers/{classifierid}/analyzeresults/{resultid}
+      name: documentclassifiers-classifierid-analyzeresults-resultid
+      description: REST surface for documentClassifiers-classifierId-analyzeResults-resultId.
+      operations:
+      - method: GET
+        name: documentclassifiersgetclassifyresult
+        description: Gets the result of document classifier.
+        call: azure-document-intelligence.documentclassifiersgetclassifyresult
+        with:
+          classifierId: rest.classifierId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers/classifierid-analyze
+      name: documentclassifiers-classifierid-analyze
+      description: REST surface for documentClassifiers-classifierId}:analyze.
+      operations:
+      - method: POST
+        name: documentclassifiersclassifydocumentfromstream
+        description: Classifies document with document classifier.
+        call: azure-document-intelligence.documentclassifiersclassifydocumentfromstream
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers/classifierid-copyto
+      name: documentclassifiers-classifierid-copyto
+      description: REST surface for documentClassifiers-classifierId}:copyTo.
+      operations:
+      - method: POST
+        name: documentclassifierscopyclassifierto
+        description: Copies document classifier to the target resource, region, and classifierId.
+        call: azure-document-intelligence.documentclassifierscopyclassifierto
+        with:
+          classifierId: rest.classifierId
+          copyToRequest: rest.copyToRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers-authorizecopy
+      name: documentclassifiers-authorizecopy
+      description: REST surface for documentClassifiers:authorizeCopy.
+      operations:
+      - method: POST
+        name: documentclassifiersauthorizeclassifiercopy
+        description: Generates authorization to copy a document classifier to this location with
+        call: azure-document-intelligence.documentclassifiersauthorizeclassifiercopy
+        with:
+          authorizeCopyRequest: rest.authorizeCopyRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentclassifiers-build
+      name: documentclassifiers-build
+      description: REST surface for documentClassifiers:build.
+      operations:
+      - method: POST
+        name: documentclassifiersbuildclassifier
+        description: Builds a custom document classifier.
+        call: azure-document-intelligence.documentclassifiersbuildclassifier
+        with:
+          buildRequest: rest.buildRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels
+      name: documentmodels
+      description: REST surface for documentModels.
+      operations:
+      - method: GET
+        name: documentmodelslistmodels
+        description: List all document models
+        call: azure-document-intelligence.documentmodelslistmodels
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}
+      name: documentmodels-modelid
+      description: REST surface for documentModels-modelId.
+      operations:
+      - method: GET
+        name: documentmodelsgetmodel
+        description: Gets detailed document model information.
+        call: azure-document-intelligence.documentmodelsgetmodel
+        with:
+          modelId: rest.modelId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: documentmodelsdeletemodel
+        description: Deletes document model.
+        call: azure-document-intelligence.documentmodelsdeletemodel
+        with:
+          modelId: rest.modelId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}/analyzebatchresults
+      name: documentmodels-modelid-analyzebatchresults
+      description: REST surface for documentModels-modelId-analyzeBatchResults.
+      operations:
+      - method: GET
+        name: documentmodelslistanalyzebatchresults
+        description: List batch document analysis results.
+        call: azure-document-intelligence.documentmodelslistanalyzebatchresults
+        with:
+          modelId: rest.modelId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}/analyzebatchresults/{resultid}
+      name: documentmodels-modelid-analyzebatchresults-resultid
+      description: REST surface for documentModels-modelId-analyzeBatchResults-resultId.
+      operations:
+      - method: GET
+        name: documentmodelsgetanalyzebatchresult
+        description: Gets the result of batch document analysis.
+        call: azure-document-intelligence.documentmodelsgetanalyzebatchresult
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: documentmodelsdeleteanalyzebatchresult
+        description: Mark the batch document analysis result for deletion.
+        call: azure-document-intelligence.documentmodelsdeleteanalyzebatchresult
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}/analyzeresults/{resultid}
+      name: documentmodels-modelid-analyzeresults-resultid
+      description: REST surface for documentModels-modelId-analyzeResults-resultId.
+      operations:
+      - method: GET
+        name: documentmodelsgetanalyzeresult
+        description: Gets the result of document analysis.
+        call: azure-document-intelligence.documentmodelsgetanalyzeresult
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: documentmodelsdeleteanalyzeresult
+        description: Mark the result of document analysis for deletion.
+        call: azure-document-intelligence.documentmodelsdeleteanalyzeresult
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}/analyzeresults/{resultid}/figures/{figureid}
+      name: documentmodels-modelid-analyzeresults-resultid-figures-figureid
+      description: REST surface for documentModels-modelId-analyzeResults-resultId-figures-figureId.
+      operations:
+      - method: GET
+        name: documentmodelsgetanalyzeresultfigure
+        description: Gets the generated cropped image of specified figure from document analysis.
+        call: azure-document-intelligence.documentmodelsgetanalyzeresultfigure
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+          figureId: rest.figureId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/{modelid}/analyzeresults/{resultid}/pdf
+      name: documentmodels-modelid-analyzeresults-resultid-pdf
+      description: REST surface for documentModels-modelId-analyzeResults-resultId-pdf.
+      operations:
+      - method: GET
+        name: documentmodelsgetanalyzeresultpdf
+        description: Gets the generated searchable PDF output from document analysis.
+        call: azure-document-intelligence.documentmodelsgetanalyzeresultpdf
+        with:
+          modelId: rest.modelId
+          resultId: rest.resultId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/modelid-analyze
+      name: documentmodels-modelid-analyze
+      description: REST surface for documentModels-modelId}:analyze.
+      operations:
+      - method: POST
+        name: documentmodelsanalyzedocumentfromstream
+        description: Analyzes document with document model.
+        call: azure-document-intelligence.documentmodelsanalyzedocumentfromstream
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/modelid-analyzebatch
+      name: documentmodels-modelid-analyzebatch
+      description: REST surface for documentModels-modelId}:analyzeBatch.
+      operations:
+      - method: POST
+        name: documentmodelsanalyzebatchdocuments
+        description: Analyzes batch documents with document model.
+        call: azure-document-intelligence.documentmodelsanalyzebatchdocuments
+        with:
+          analyzeBatchRequest: rest.analyzeBatchRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels/modelid-copyto
+      name: documentmodels-modelid-copyto
+      description: REST surface for documentModels-modelId}:copyTo.
+      operations:
+      - method: POST
+        name: documentmodelscopymodelto
+        description: Copies document model to the target resource, region, and modelId.
+        call: azure-document-intelligence.documentmodelscopymodelto
+        with:
+          modelId: rest.modelId
+          copyToRequest: rest.copyToRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels-authorizecopy
+      name: documentmodels-authorizecopy
+      description: REST surface for documentModels:authorizeCopy.
+      operations:
+      - method: POST
+        name: documentmodelsauthorizemodelcopy
+        description: Generates authorization to copy a document model to this location with
+        call: azure-document-intelligence.documentmodelsauthorizemodelcopy
+        with:
+          authorizeCopyRequest: rest.authorizeCopyRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels-build
+      name: documentmodels-build
+      description: REST surface for documentModels:build.
+      operations:
+      - method: POST
+        name: documentmodelsbuildmodel
+        description: Builds a custom document analysis model.
+        call: azure-document-intelligence.documentmodelsbuildmodel
+        with:
+          buildRequest: rest.buildRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/documentmodels-compose
+      name: documentmodels-compose
+      description: REST surface for documentModels:compose.
+      operations:
+      - method: POST
+        name: documentmodelscomposemodel
+        description: Creates a new document model from document types of existing document models.
+        call: azure-document-intelligence.documentmodelscomposemodel
+        with:
+          composeRequest: rest.composeRequest
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/info
+      name: info
+      description: REST surface for info.
+      operations:
+      - method: GET
+        name: miscellaneousoperationsgetresourcedetails
+        description: Return information about the current resource.
+        call: azure-document-intelligence.miscellaneousoperationsgetresourcedetails
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operations
+      name: operations
+      description: REST surface for operations.
+      operations:
+      - method: GET
+        name: miscellaneousoperationslistoperations
+        description: Lists all operations.
+        call: azure-document-intelligence.miscellaneousoperationslistoperations
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/operations/{operationid}
+      name: operations-operationid
+      description: REST surface for operations-operationId.
+      operations:
+      - method: GET
+        name: miscellaneousoperationsgetdocumentmodelbuildoperation
+        description: Gets operation info.
+        call: azure-document-intelligence.miscellaneousoperationsgetdocumentmodelbuildoperation
+        with:
+          operationId: rest.operationId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: azure-document-intelligence-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Document Intelligence (formerly Form Recognizer). One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-all-document-classifiers
+      description: List all document classifiers.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentclassifierslistclassifiers
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-detailed-document-classifier-information
+      description: Gets detailed document classifier information.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentclassifiersgetclassifier
+      with:
+        classifierId: tools.classifierId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletes-document-classifier
+      description: Deletes document classifier.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: azure-document-intelligence.documentclassifiersdeleteclassifier
+      with:
+        classifierId: tools.classifierId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-result-document-classifier
+      description: Gets the result of document classifier.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentclassifiersgetclassifyresult
+      with:
+        classifierId: tools.classifierId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: classifies-document-document-classifier
+      description: Classifies document with document classifier.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentclassifiersclassifydocumentfromstream
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: copies-document-classifier-target-resource
+      description: Copies document classifier to the target resource, region, and classifierId.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentclassifierscopyclassifierto
+      with:
+        classifierId: tools.classifierId
+        copyToRequest: tools.copyToRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generates-authorization-copy-document-classifier
+      description: Generates authorization to copy a document classifier to this location with
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentclassifiersauthorizeclassifiercopy
+      with:
+        authorizeCopyRequest: tools.authorizeCopyRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: builds-custom-document-classifier
+      description: Builds a custom document classifier.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentclassifiersbuildclassifier
+      with:
+        buildRequest: tools.buildRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-document-models
+      description: List all document models
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelslistmodels
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-detailed-document-model-information
+      description: Gets detailed document model information.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsgetmodel
+      with:
+        modelId: tools.modelId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletes-document-model
+      description: Deletes document model.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsdeletemodel
+      with:
+        modelId: tools.modelId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-batch-document-analysis-results
+      description: List batch document analysis results.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelslistanalyzebatchresults
+      with:
+        modelId: tools.modelId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-result-batch-document-analysis
+      description: Gets the result of batch document analysis.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsgetanalyzebatchresult
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-batch-document-analysis-result
+      description: Mark the batch document analysis result for deletion.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsdeleteanalyzebatchresult
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-result-document-analysis
+      description: Gets the result of document analysis.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsgetanalyzeresult
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: mark-result-document-analysis-deletion
+      description: Mark the result of document analysis for deletion.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsdeleteanalyzeresult
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-generated-cropped-image-specified
+      description: Gets the generated cropped image of specified figure from document analysis.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsgetanalyzeresultfigure
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+        figureId: tools.figureId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-generated-searchable-pdf-output
+      description: Gets the generated searchable PDF output from document analysis.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.documentmodelsgetanalyzeresultpdf
+      with:
+        modelId: tools.modelId
+        resultId: tools.resultId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: analyzes-document-document-model
+      description: Analyzes document with document model.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelsanalyzedocumentfromstream
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: analyzes-batch-documents-document-model
+      description: Analyzes batch documents with document model.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelsanalyzebatchdocuments
+      with:
+        analyzeBatchRequest: tools.analyzeBatchRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: copies-document-model-target-resource
+      description: Copies document model to the target resource, region, and modelId.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelscopymodelto
+      with:
+        modelId: tools.modelId
+        copyToRequest: tools.copyToRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generates-authorization-copy-document-model
+      description: Generates authorization to copy a document model to this location with
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelsauthorizemodelcopy
+      with:
+        authorizeCopyRequest: tools.authorizeCopyRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: builds-custom-document-analysis-model
+      description: Builds a custom document analysis model.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelsbuildmodel
+      with:
+        buildRequest: tools.buildRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creates-new-document-model-document
+      description: Creates a new document model from document types of existing document models.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: azure-document-intelligence.documentmodelscomposemodel
+      with:
+        composeRequest: tools.composeRequest
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: return-information-about-current-resource
+      description: Return information about the current resource.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.miscellaneousoperationsgetresourcedetails
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lists-all-operations
+      description: Lists all operations.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.miscellaneousoperationslistoperations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gets-operation-info
+      description: Gets operation info.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: azure-document-intelligence.miscellaneousoperationsgetdocumentmodelbuildoperation
+      with:
+        operationId: tools.operationId
+      outputParameters:
+      - type: object
+        mapping: $.
