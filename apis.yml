@@ -66,6 +66,8 @@ common:
   url: rate-limits/azure-document-intelligence-rate-limits.yml
 - type: FinOps
   url: finops/azure-document-intelligence-finops.yml
+- type: LLMsTxt
+  url: https://portal.azure.com/llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
