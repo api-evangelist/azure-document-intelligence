@@ -45,7 +45,7 @@ apis:
         url: openapi/azure-document-intelligence-openapi.json
       - type: OpenAPISource
         url: https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
-      - type: SDK
+      - type: SDKs
         url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
       - type: ServiceLimits
         url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
@@ -66,7 +66,7 @@ common:
     url: rate-limits/azure-document-intelligence-rate-limits.yml
   - type: FinOps
     url: finops/azure-document-intelligence-finops.yml
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://portal.azure.com/llms.txt
 maintainers:
   - FN: Kin Lane
