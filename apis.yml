@@ -50,6 +50,8 @@ apis:
       - type: ServiceLimits
         url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 common:
+  - type: OAuthScopes
+    url: scopes/azure-document-intelligence-scopes.yml
   - type: Website
     url: https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
   - type: Documentation
