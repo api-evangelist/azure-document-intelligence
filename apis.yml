@@ -50,6 +50,8 @@ apis:
       - type: ServiceLimits
         url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 common:
+  - type: AgenticAccess
+    url: agentic-access/azure-document-intelligence-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/azure-document-intelligence-vulnerability-disclosure.yml
   - type: DomainSecurity

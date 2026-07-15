@@ -1,0 +1,424 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/azure-document-intelligence-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 27
+  by_action_class:
+    connected: 13
+    acting: 14
+  by_consequence:
+    read: 13
+    write: 14
+  human_in_the_loop_required: 0
+operations:
+- path: /documentClassifiers
+  method: get
+  operationId: DocumentClassifiers_ListClassifiers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers/{classifierId}
+  method: get
+  operationId: DocumentClassifiers_GetClassifier
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers/{classifierId}
+  method: delete
+  operationId: DocumentClassifiers_DeleteClassifier
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers/{classifierId}:analyze
+  method: post
+  operationId: DocumentClassifiers_ClassifyDocumentFromStream
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers/{classifierId}:copyTo
+  method: post
+  operationId: DocumentClassifiers_CopyClassifierTo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers/{classifierId}/analyzeResults/{resultId}
+  method: get
+  operationId: DocumentClassifiers_GetClassifyResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers:authorizeCopy
+  method: post
+  operationId: DocumentClassifiers_AuthorizeClassifierCopy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentClassifiers:build
+  method: post
+  operationId: DocumentClassifiers_BuildClassifier
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels
+  method: get
+  operationId: DocumentModels_ListModels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}:analyze
+  method: post
+  operationId: DocumentModels_AnalyzeDocumentFromStream
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}:analyzeBatch
+  method: post
+  operationId: DocumentModels_AnalyzeBatchDocuments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}
+  method: get
+  operationId: DocumentModels_GetModel
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}
+  method: delete
+  operationId: DocumentModels_DeleteModel
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}:copyTo
+  method: post
+  operationId: DocumentModels_CopyModelTo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeBatchResults
+  method: get
+  operationId: DocumentModels_ListAnalyzeBatchResults
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeBatchResults/{resultId}
+  method: get
+  operationId: DocumentModels_GetAnalyzeBatchResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeBatchResults/{resultId}
+  method: delete
+  operationId: DocumentModels_DeleteAnalyzeBatchResult
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeResults/{resultId}
+  method: get
+  operationId: DocumentModels_GetAnalyzeResult
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeResults/{resultId}
+  method: delete
+  operationId: DocumentModels_DeleteAnalyzeResult
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeResults/{resultId}/figures/{figureId}
+  method: get
+  operationId: DocumentModels_GetAnalyzeResultFigure
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels/{modelId}/analyzeResults/{resultId}/pdf
+  method: get
+  operationId: DocumentModels_GetAnalyzeResultPdf
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels:authorizeCopy
+  method: post
+  operationId: DocumentModels_AuthorizeModelCopy
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels:build
+  method: post
+  operationId: DocumentModels_BuildModel
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /documentModels:compose
+  method: post
+  operationId: DocumentModels_ComposeModel
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /info
+  method: get
+  operationId: MiscellaneousOperations_GetResourceDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /operations
+  method: get
+  operationId: MiscellaneousOperations_ListOperations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
+- path: /operations/{operationId}
+  method: get
+  operationId: MiscellaneousOperations_GetDocumentModelBuildOperation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+    scope:
+    - https://cognitiveservices.azure.com/.default
