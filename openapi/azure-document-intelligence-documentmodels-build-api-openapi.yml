@@ -1,0 +1,443 @@
+swagger: '2.0'
+info:
+  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:build API
+  version: '2024-11-30'
+  description: Extracts content, layout, and structured data from documents.
+  x-typespec-generated:
+  - emitter: '@azure-tools/typespec-autorest'
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+security:
+- ApiKeyAuth: []
+- OAuth2Auth:
+  - https://cognitiveservices.azure.com/.default
+tags:
+- name: DocumentModels:build
+paths:
+  /documentModels:build:
+    post:
+      operationId: DocumentModels_BuildModel
+      description: Builds a custom document analysis model.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: buildRequest
+        in: body
+        description: Build request parameters.
+        required: true
+        schema:
+          $ref: '#/definitions/BuildDocumentModelRequest'
+      responses:
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
+          headers:
+            Operation-Location:
+              type: string
+              format: uri
+              description: The location of an instance of DocumentModelBuildOperationDetails
+            Retry-After:
+              type: integer
+              format: int32
+              description: The Retry-After header can indicate how long the client should wait before polling the operation status.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Build Document Model:
+          $ref: ./examples/BuildDocumentModel.json
+      x-ms-long-running-operation: true
+      tags:
+      - DocumentModels:build
+definitions:
+  DocumentIntelligenceErrorResponse:
+    type: object
+    description: Error response object.
+    properties:
+      error:
+        $ref: '#/definitions/DocumentIntelligenceError'
+        description: Error info.
+    required:
+    - error
+  DocumentIntelligenceInnerError:
+    type: object
+    description: An object containing more specific information about the error.
+    properties:
+      code:
+        type: string
+        description: One of a server-defined set of error codes.
+      message:
+        type: string
+        description: A human-readable representation of the error.
+      innererror:
+        $ref: '#/definitions/DocumentIntelligenceInnerError'
+        description: Inner error.
+  DocumentBuildMode:
+    type: string
+    description: Custom document model build mode.
+    enum:
+    - template
+    - neural
+    x-ms-enum:
+      name: DocumentBuildMode
+      modelAsString: true
+      values:
+      - name: template
+        value: template
+        description: Target documents with similar visual templates.
+      - name: neural
+        value: neural
+        description: Support documents with diverse visual templates.
+  BuildDocumentModelRequest:
+    type: object
+    description: Request body to build a new custom document model.
+    properties:
+      modelId:
+        type: string
+        description: Unique document model name.
+        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+      description:
+        type: string
+        description: Document model description.
+        maxLength: 4096
+      buildMode:
+        $ref: '#/definitions/DocumentBuildMode'
+        description: Custom document model build mode.
+      azureBlobSource:
+        $ref: '#/definitions/AzureBlobContentSource'
+        description: 'Azure Blob Storage location containing the training data.  Either
+
+          azureBlobSource or azureBlobFileListSource must be specified.'
+      azureBlobFileListSource:
+        $ref: '#/definitions/AzureBlobFileListContentSource'
+        description: 'Azure Blob Storage file list specifying the training data.  Either
+
+          azureBlobSource or azureBlobFileListSource must be specified.'
+      tags:
+        type: object
+        description: List of key-value tag attributes associated with the document model.
+        additionalProperties:
+          type: string
+      maxTrainingHours:
+        type: number
+        format: float
+        description: Max number of V100-equivalent GPU hours to use for model training.  Default=0.5.
+        default: 0.5
+      allowOverwrite:
+        type: boolean
+        description: Allow overwriting an existing model with the same name.
+        default: false
+    required:
+    - modelId
+    - buildMode
+  AzureBlobFileListContentSource:
+    type: object
+    description: File list in Azure Blob Storage.
+    properties:
+      containerUrl:
+        type: string
+        format: uri
+        description: Azure Blob Storage container URL.
+      fileList:
+        type: string
+        description: Path to a JSONL file within the container specifying a subset of documents.
+    required:
+    - containerUrl
+    - fileList
+  AzureBlobContentSource:
+    type: object
+    description: Azure Blob Storage content.
+    properties:
+      containerUrl:
+        type: string
+        format: uri
+        description: Azure Blob Storage container URL.
+      prefix:
+        type: string
+        description: Blob name prefix.
+    required:
+    - containerUrl
+  DocumentIntelligenceError:
+    type: object
+    description: The error object.
+    properties:
+      code:
+        type: string
+        description: One of a server-defined set of error codes.
+      message:
+        type: string
+        description: A human-readable representation of the error.
+      target:
+        type: string
+        description: The target of the error.
+      details:
+        type: array
+        description: An array of details about specific errors that led to this reported error.
+        items:
+          $ref: '#/definitions/DocumentIntelligenceError'
+      innererror:
+        $ref: '#/definitions/DocumentIntelligenceInnerError'
+        description: An object containing more specific information than the current object about the error.
+    required:
+    - code
+    - message
+parameters:
+  Azure.Core.Foundations.ApiVersionParameter:
+    name: api-version
+    in: query
+    description: The API version to use for this operation.
+    required: true
+    type: string
+    minLength: 1
+    x-ms-parameter-location: method
+    x-ms-client-name: apiVersion
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    name: Ocp-Apim-Subscription-Key
+    in: header
+  OAuth2Auth:
+    type: oauth2
+    flow: accessCode
+    authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+    scopes:
+      https://cognitiveservices.azure.com/.default: ''
+    tokenUrl: https://login.microsoftonline.com/common/oauth2/token
+x-ms-parameterized-host:
+  hostTemplate: '{endpoint}/documentintelligence'
+  useSchemePrefix: false
+  parameters:
+  - name: endpoint
+    in: path
+    description: The Document Intelligence service endpoint.
+    required: true
+    type: string
+    format: uri
+    x-ms-skip-url-encoding: true
+x-ms-paths:
+  /documentClassifiers/{classifierId}:analyze?_overload=classifyDocument:
+    post:
+      operationId: DocumentClassifiers_ClassifyDocument
+      description: Classifies document with document classifier.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.classifierId'
+      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.stringIndexType'
+      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.split'
+      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.pages'
+      - name: classifyRequest
+        in: body
+        description: Classify request parameters.
+        required: true
+        schema:
+          $ref: '#/definitions/ClassifyDocumentRequest'
+      responses:
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
+          headers:
+            Operation-Location:
+              type: string
+              format: uri
+              description: The location of an instance of AnalyzeOperation
+            Retry-After:
+              type: integer
+              format: int32
+              description: The Retry-After header can indicate how long the client should wait before polling the operation status.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Classify Document from Url:
+          $ref: ./examples/ClassifyDocument_Url.json
+      x-ms-long-running-operation: true
+  /documentModels/{modelId}:analyze?_overload=analyzeDocument:
+    post:
+      operationId: DocumentModels_AnalyzeDocument
+      description: Analyzes document with document model.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.modelId'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.pages'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.locale'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.stringIndexType'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.features'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.queryFields'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.outputContentFormat'
+      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.output'
+      - name: analyzeRequest
+        in: body
+        description: Analyze request parameters.
+        required: true
+        schema:
+          $ref: '#/definitions/AnalyzeDocumentRequest'
+      responses:
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
+          headers:
+            Operation-Location:
+              type: string
+              format: uri
+              description: The location of an instance of AnalyzeOperation
+            Retry-After:
+              type: integer
+              format: int32
+              description: The Retry-After header can indicate how long the client should wait before polling the operation status.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Analyze Document from Base64:
+          $ref: ./examples/AnalyzeDocument_Base64.json
+        Analyze Document from Url:
+          $ref: ./examples/AnalyzeDocument_Url.json
+      x-ms-long-running-operation: true
+  /operations/{operationId}?_overload=getDocumentClassifierBuildOperation:
+    get:
+      operationId: MiscellaneousOperations_GetDocumentClassifierBuildOperation
+      description: Gets operation info.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: operationId
+        in: path
+        description: Operation ID
+        required: true
+        type: string
+      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      responses:
+        '200':
+          description: The request has succeeded.
+          schema:
+            $ref: '#/definitions/DocumentClassifierBuildOperationDetails'
+          headers:
+            x-ms-client-request-id:
+              type: string
+              format: uuid
+              description: An opaque, globally-unique, client-generated string identifier for the request.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Get Operation - Document Classifier Build:
+          $ref: ./examples/GetOperation_DocumentClassifierBuild.json
+  /operations/{operationId}?_overload=getDocumentClassifierCopyToOperation:
+    get:
+      operationId: MiscellaneousOperations_GetDocumentClassifierCopyToOperation
+      description: Gets operation info.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: operationId
+        in: path
+        description: Operation ID
+        required: true
+        type: string
+      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      responses:
+        '200':
+          description: The request has succeeded.
+          schema:
+            $ref: '#/definitions/DocumentClassifierCopyToOperationDetails'
+          headers:
+            x-ms-client-request-id:
+              type: string
+              format: uuid
+              description: An opaque, globally-unique, client-generated string identifier for the request.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Get Operation - Document Classifier Copy To:
+          $ref: ./examples/GetOperation_DocumentClassifierCopyTo.json
+  /operations/{operationId}?_overload=getDocumentModelComposeOperation:
+    get:
+      operationId: MiscellaneousOperations_GetDocumentModelComposeOperation
+      description: Gets operation info.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: operationId
+        in: path
+        description: Operation ID
+        required: true
+        type: string
+      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      responses:
+        '200':
+          description: The request has succeeded.
+          schema:
+            $ref: '#/definitions/DocumentModelComposeOperationDetails'
+          headers:
+            x-ms-client-request-id:
+              type: string
+              format: uuid
+              description: An opaque, globally-unique, client-generated string identifier for the request.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Get Operation - Document Model Compose:
+          $ref: ./examples/GetOperation_DocumentModelCompose.json
+  /operations/{operationId}?_overload=getDocumentModelCopyToOperation:
+    get:
+      operationId: MiscellaneousOperations_GetDocumentModelCopyToOperation
+      description: Gets operation info.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: operationId
+        in: path
+        description: Operation ID
+        required: true
+        type: string
+      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      responses:
+        '200':
+          description: The request has succeeded.
+          schema:
+            $ref: '#/definitions/DocumentModelCopyToOperationDetails'
+          headers:
+            x-ms-client-request-id:
+              type: string
+              format: uuid
+              description: An opaque, globally-unique, client-generated string identifier for the request.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Get Operation - Document Model Copy To:
+          $ref: ./examples/GetOperation_DocumentModelCopyTo.json
+  /operations/{operationId}?_overload=getOperation:
+    get:
+      operationId: MiscellaneousOperations_GetOperation
+      description: Gets operation info.
+      parameters:
+      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - name: operationId
+        in: path
+        description: Operation ID
+        required: true
+        type: string
+      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      responses:
+        '200':
+          description: The request has succeeded.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceOperationDetails'
+          headers:
+            x-ms-client-request-id:
+              type: string
+              format: uuid
+              description: An opaque, globally-unique, client-generated string identifier for the request.
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+      x-ms-examples:
+        Get Operation:
+          $ref: ./examples/GetOperation.json
