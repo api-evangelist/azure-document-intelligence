@@ -7,7 +7,20 @@ description: >-
   exposes prebuilt models for invoices, receipts, IDs, business cards, tax forms and contracts, plus a layout/OCR Read
   model and a Custom-model framework for fine-tuned extraction. The 2024- 11-30 GA REST API is the current stable
   surface; preview APIs add Custom Generative Extraction.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/azure-document-intelligence.png
 tags:
   - AI
   - Document AI
@@ -20,35 +33,204 @@ created: '2026-05-08'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-  - aid: azure-doc-intel:rest
-    name: Azure AI Document Intelligence REST API
-    description: >-
-      REST API for document Read (OCR), Layout, prebuilt models (Invoice, Receipt, ID, Business Card, W2, Contract,
-      Health Insurance Card etc.), Custom Classifiers and Custom Extractors. Authenticated via Azure subscription key or
-      Microsoft Entra ID (formerly Azure AD).
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
-    baseURL: https://<your-resource>.cognitiveservices.azure.com
-    tags:
-      - REST
-      - OCR
-      - Layout
-      - Custom Models
-      - Prebuilt Models
-      - Azure
-    properties:
-      - type: Documentation
-        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
-      - type: APIReference
-        url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
-      - type: OpenAPI
-        url: openapi/azure-document-intelligence-openapi.json
-      - type: OpenAPISource
-        url: https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
-      - type: SDKs
-        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
-      - type: ServiceLimits
-        url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentclassifiers-api
+  name: Azure AI Document Intelligence DocumentClassifiers API
+  description: >-
+    The DocumentClassifiers API from Azure AI Document Intelligence — 5 operation(s) for documentclassifiers.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentClassifiers
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentclassifiers-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: >-
+    azure-document-intelligence:azure-document-intelligence-documentclassifiers-authorizecopy-api
+  name: Azure AI Document Intelligence DocumentClassifiers:authorizeCopy API
+  description: >-
+    The DocumentClassifiers:authorizeCopy API from Azure AI Document Intelligence — 1 operation(s) for
+    documentclassifiers:authorizecopy.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentClassifiers:authorizeCopy
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentclassifiers-build-api
+  name: Azure AI Document Intelligence DocumentClassifiers:build API
+  description: >-
+    The DocumentClassifiers:build API from Azure AI Document Intelligence — 1 operation(s) for documentclassifiers:build.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentClassifiers:build
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentclassifiers-build-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentmodels-api
+  name: Azure AI Document Intelligence DocumentModels API
+  description: >-
+    The DocumentModels API from Azure AI Document Intelligence — 10 operation(s) for documentmodels.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentModels
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentmodels-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentmodels-authorizecopy-api
+  name: Azure AI Document Intelligence DocumentModels:authorizeCopy API
+  description: >-
+    The DocumentModels:authorizeCopy API from Azure AI Document Intelligence — 1 operation(s) for documentmodels:authorizecopy.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentModels:authorizeCopy
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentmodels-build-api
+  name: Azure AI Document Intelligence DocumentModels:build API
+  description: >-
+    The DocumentModels:build API from Azure AI Document Intelligence — 1 operation(s) for documentmodels:build.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentModels:build
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentmodels-build-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-documentmodels-compose-api
+  name: Azure AI Document Intelligence DocumentModels:compose API
+  description: >-
+    The DocumentModels:compose API from Azure AI Document Intelligence — 1 operation(s) for documentmodels:compose.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - DocumentModels:compose
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-documentmodels-compose-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-info-api
+  name: Azure AI Document Intelligence Info API
+  description: The Info API from Azure AI Document Intelligence — 1 operation(s) for info.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-info-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
+- aid: azure-document-intelligence:azure-document-intelligence-operations-api
+  name: Azure AI Document Intelligence Operations API
+  description: The Operations API from Azure AI Document Intelligence — 2 operation(s) for operations.
+  humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  baseURL: https://<your-resource>.cognitiveservices.azure.com
+  tags:
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/azure-document-intelligence-operations-api-openapi.yml
+  - type: Documentation
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
+  - type: APIReference
+    url: https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/
+  - type: OpenAPISource
+    url: >-
+      https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence
+  - type: SDKs
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview
+  - type: ServiceLimits
+    url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 common:
   - type: AgenticAccess
     url: agentic-access/azure-document-intelligence-agentic-access.yml
