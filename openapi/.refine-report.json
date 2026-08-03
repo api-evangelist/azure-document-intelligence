@@ -1,0 +1,30 @@
+{
+  "provider": "azure-document-intelligence",
+  "sources": [
+    "azure-document-intelligence-documentclassifiers-api-openapi.yml",
+    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml",
+    "azure-document-intelligence-documentclassifiers-build-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-build-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-compose-api-openapi.yml",
+    "azure-document-intelligence-info-api-openapi.yml",
+    "azure-document-intelligence-operations-api-openapi.yml"
+  ],
+  "outputs": [
+    "azure-document-intelligence-documentclassifiers-api-openapi.yml",
+    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml",
+    "azure-document-intelligence-documentclassifiers-build-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-build-api-openapi.yml",
+    "azure-document-intelligence-documentmodels-compose-api-openapi.yml",
+    "azure-document-intelligence-info-api-openapi.yml",
+    "azure-document-intelligence-operations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
