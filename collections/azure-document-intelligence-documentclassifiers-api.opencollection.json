@@ -1,0 +1,204 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers API",
+    "version": "2024-11-30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DocumentClassifiers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DocumentClassifiers_ListClassifiers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentClassifiers",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              }
+            ]
+          },
+          "docs": "List all document classifiers."
+        },
+        {
+          "info": {
+            "name": "DocumentClassifiers_GetClassifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentClassifiers/:classifierId",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document classifier name."
+              }
+            ]
+          },
+          "docs": "Gets detailed document classifier information."
+        },
+        {
+          "info": {
+            "name": "DocumentClassifiers_DeleteClassifier",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/documentClassifiers/:classifierId",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document classifier name."
+              }
+            ]
+          },
+          "docs": "Deletes document classifier."
+        },
+        {
+          "info": {
+            "name": "DocumentClassifiers_ClassifyDocumentFromStream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentClassifiers/:classifierId:analyze",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document classifier name."
+              },
+              {
+                "name": "stringIndexType",
+                "value": "",
+                "type": "query",
+                "description": "Method used to compute string offset and length."
+              },
+              {
+                "name": "split",
+                "value": "",
+                "type": "query",
+                "description": "Document splitting mode."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "1-based page numbers to analyze.  Ex. \"1-3,5,7-9\""
+              }
+            ]
+          },
+          "docs": "Classifies document with document classifier."
+        },
+        {
+          "info": {
+            "name": "DocumentClassifiers_CopyClassifierTo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentClassifiers/:classifierId:copyTo",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document classifier name."
+              }
+            ]
+          },
+          "docs": "Copies document classifier to the target resource, region, and classifierId."
+        },
+        {
+          "info": {
+            "name": "DocumentClassifiers_GetClassifyResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentClassifiers/:classifierId/analyzeResults/:resultId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "classifierId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document classifier name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze operation result ID."
+              }
+            ]
+          },
+          "docs": "Gets the result of document classifier."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,246 @@
+{
+  "item": [
+    {
+      "id": "5f12582f-256b-4c92-b39e-de7613d1f333",
+      "name": "DocumentClassifiers:authorizeCopy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4e5e4eda-1f46-43e4-98cb-b586dd23a06b",
+          "name": "Document Classifiers Authorize Classifier Copy",
+          "request": {
+            "name": "Document Classifiers Authorize Classifier Copy",
+            "description": {
+              "content": "Generates authorization to copy a document classifier to this location with\nspecified classifierId and optional description.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documentClassifiers:authorizeCopy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"classifierId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "65e0908a-98e3-427b-8549-58de7f4a5103",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentClassifiers:authorizeCopy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"classifierId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"targetResourceId\": \"string\",\n  \"targetResourceRegion\": \"string\",\n  \"targetClassifierId\": \"H8im41TgnQ12itedWYguaTEkmo0eS7Kop.yYFXb2.a~\",\n  \"targetClassifierLocation\": \"https://FDOXptNCoEePdSHyrwtjyNkTg.gyffjHjMrVSRnpRYEM0q9y,NjRmt99,xJmbYEM7AQ.EdnGf+pHNpE,bkqV0dS+z3x6Nvsi+n\",\n  \"accessToken\": \"string\",\n  \"expirationDateTime\": \"1956-08-11T06:19:13.493Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6640bc7b-2ef9-4157-9720-00127117a638",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentClassifiers:authorizeCopy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"classifierId\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tags\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Document Intelligence service endpoint.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "none",
+      "key": "endpoint"
+    },
+    {
+      "type": "string",
+      "value": "{{endpoint}}/documentintelligence",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c5f14a49-a96a-4919-a9c4-4e22c7019f66",
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:authorizeCopy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Extracts content, layout, and structured data from documents.",
+      "type": "text/plain"
+    }
+  }
+}

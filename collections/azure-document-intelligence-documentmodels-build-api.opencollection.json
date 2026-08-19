@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:build API",
+    "version": "2024-11-30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DocumentModels:build",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DocumentModels_BuildModel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentModels:build",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              }
+            ]
+          },
+          "docs": "Builds a custom document analysis model."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

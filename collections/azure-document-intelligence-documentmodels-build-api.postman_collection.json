@@ -1,0 +1,254 @@
+{
+  "item": [
+    {
+      "id": "9acf1643-85c0-4d1d-9ce2-3bbabf752168",
+      "name": "DocumentModels:build",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68b15c54-8479-45e4-891c-3368e4f7207e",
+          "name": "Document Models Build Model",
+          "request": {
+            "name": "Document Models Build Model",
+            "description": {
+              "content": "Builds a custom document analysis model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documentModels:build"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"modelId\": \"<string>\",\n  \"buildMode\": \"<string>\",\n  \"description\": \"<string>\",\n  \"azureBlobSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"prefix\": \"<string>\"\n  },\n  \"azureBlobFileListSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"fileList\": \"<string>\"\n  },\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"maxTrainingHours\": 0.5,\n  \"allowOverwrite\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "89253635-9c06-4c9a-a222-5cb1b9c08d86",
+              "name": "The request has been accepted for processing, but processing has not yet completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentModels:build"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"buildMode\": \"<string>\",\n  \"description\": \"<string>\",\n  \"azureBlobSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"prefix\": \"<string>\"\n  },\n  \"azureBlobFileListSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"fileList\": \"<string>\"\n  },\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"maxTrainingHours\": 0.5,\n  \"allowOverwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The location of an instance of DocumentModelBuildOperationDetails",
+                  "key": "Operation-Location",
+                  "value": "https://DGlNMrtjyVxTXqsJrtyqHUSSWmzkvT.jogo7bJd72PvfocgszhSlHBuFPSIjHCjfeNTJh-GxL.iJGVxv9SlQyZrXpsfm2rXNeZYZPmhRsY"
+                },
+                {
+                  "disabled": false,
+                  "description": "The Retry-After header can indicate how long the client should wait before polling the operation status.",
+                  "key": "Retry-After",
+                  "value": "4887"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a0532036-d77e-4631-8df6-49373cc5b168",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentModels:build"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"buildMode\": \"<string>\",\n  \"description\": \"<string>\",\n  \"azureBlobSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"prefix\": \"<string>\"\n  },\n  \"azureBlobFileListSource\": {\n    \"containerUrl\": \"<uri>\",\n    \"fileList\": \"<string>\"\n  },\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\",\n    \"key_3\": \"<string>\"\n  },\n  \"maxTrainingHours\": 0.5,\n  \"allowOverwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Document Intelligence service endpoint.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "none",
+      "key": "endpoint"
+    },
+    {
+      "type": "string",
+      "value": "{{endpoint}}/documentintelligence",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2aa079f3-1c52-49ac-b222-ecd1313c6cda",
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:build API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Extracts content, layout, and structured data from documents.",
+      "type": "text/plain"
+    }
+  }
+}

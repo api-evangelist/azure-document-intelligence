@@ -1,0 +1,254 @@
+{
+  "item": [
+    {
+      "id": "a6eeb701-de7b-4bd8-88ab-edbd515c58bc",
+      "name": "DocumentModels:compose",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c642999-7474-4ff5-bf94-32af93dc9a77",
+          "name": "Document Models Compose Model",
+          "request": {
+            "name": "Document Models Compose Model",
+            "description": {
+              "content": "Creates a new document model from document types of existing document models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documentModels:compose"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"modelId\": \"<string>\",\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"description\": \"<string>\",\n      \"buildMode\": \"<string>\",\n      \"fieldSchema\": {\n        \"key_0\": {\n          \"type\": \"<string>\",\n          \"description\": \"<string>\",\n          \"example\": \"<string>\",\n          \"items\": {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentFieldSchema detected>\"\n          },\n          \"properties\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/DocumentFieldSchema detected>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"type\": \"<string>\",\n          \"description\": \"<string>\",\n          \"example\": \"<string>\",\n          \"items\": {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentFieldSchema detected>\"\n          },\n          \"properties\": {\n            \"key_0\": {\n              \"value\": \"<Circular reference to #/components/schemas/DocumentFieldSchema detected>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Circular reference to #/components/schemas/DocumentFieldSchema detected>\"\n            }\n          }\n        }\n      },\n      \"fieldConfidence\": {\n        \"key_0\": \"<float>\",\n        \"key_1\": \"<float>\",\n        \"key_2\": \"<float>\"\n      },\n      \"modelId\": \"<string>\",\n      \"confidenceThreshold\": \"<float>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"queryFields\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxDocumentsToAnalyze\": \"<integer>\"\n    }\n  },\n  \"description\": \"<string>\",\n  \"split\": \"none\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0b3c5862-0325-432d-8546-c79a9673a7f3",
+              "name": "The request has been accepted for processing, but processing has not yet completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentModels:compose"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"description\": \"<string>\",\n      \"buildMode\": \"<string>\",\n      \"fieldSchema\": {\n        \"key_0\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        },\n        \"key_1\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        }\n      },\n      \"fieldConfidence\": {\n        \"key_0\": \"<float>\",\n        \"key_1\": \"<float>\"\n      },\n      \"modelId\": \"<string>\",\n      \"confidenceThreshold\": \"<float>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"queryFields\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxDocumentsToAnalyze\": \"<integer>\"\n    },\n    \"key_1\": {\n      \"description\": \"<string>\",\n      \"buildMode\": \"<string>\",\n      \"fieldSchema\": {\n        \"key_0\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        },\n        \"key_1\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        }\n      },\n      \"fieldConfidence\": {\n        \"key_0\": \"<float>\"\n      },\n      \"modelId\": \"<string>\",\n      \"confidenceThreshold\": \"<float>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"queryFields\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxDocumentsToAnalyze\": \"<integer>\"\n    }\n  },\n  \"description\": \"<string>\",\n  \"split\": \"none\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The location of an instance of DocumentModelComposeOperationDetails",
+                  "key": "Operation-Location",
+                  "value": "https://OYBGAmjNFwnr.ttuwaD8UcO"
+                },
+                {
+                  "disabled": false,
+                  "description": "The Retry-After header can indicate how long the client should wait before polling the operation status.",
+                  "key": "Retry-After",
+                  "value": "6539"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "98676a78-76b4-4dce-9563-5a3f6828d14a",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentModels:compose"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"modelId\": \"<string>\",\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"description\": \"<string>\",\n      \"buildMode\": \"<string>\",\n      \"fieldSchema\": {\n        \"key_0\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        },\n        \"key_1\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        }\n      },\n      \"fieldConfidence\": {\n        \"key_0\": \"<float>\",\n        \"key_1\": \"<float>\"\n      },\n      \"modelId\": \"<string>\",\n      \"confidenceThreshold\": \"<float>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"queryFields\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxDocumentsToAnalyze\": \"<integer>\"\n    },\n    \"key_1\": {\n      \"description\": \"<string>\",\n      \"buildMode\": \"<string>\",\n      \"fieldSchema\": {\n        \"key_0\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        },\n        \"key_1\": {\n          \"type\": \"string\",\n          \"description\": \"Example field content.\",\n          \"default\": \"<string>\"\n        }\n      },\n      \"fieldConfidence\": {\n        \"key_0\": \"<float>\"\n      },\n      \"modelId\": \"<string>\",\n      \"confidenceThreshold\": \"<float>\",\n      \"features\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"queryFields\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxDocumentsToAnalyze\": \"<integer>\"\n    }\n  },\n  \"description\": \"<string>\",\n  \"split\": \"none\",\n  \"tags\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Document Intelligence service endpoint.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "none",
+      "key": "endpoint"
+    },
+    {
+      "type": "string",
+      "value": "{{endpoint}}/documentintelligence",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "02aea468-759b-4747-a4b1-4e7c557b01de",
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:compose API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Extracts content, layout, and structured data from documents.",
+      "type": "text/plain"
+    }
+  }
+}

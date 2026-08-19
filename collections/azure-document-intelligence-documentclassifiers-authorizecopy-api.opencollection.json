@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:authorizeCopy API",
+    "version": "2024-11-30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DocumentClassifiers:authorizeCopy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DocumentClassifiers_AuthorizeClassifierCopy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentClassifiers:authorizeCopy",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              }
+            ]
+          },
+          "docs": "Generates authorization to copy a document classifier to this location with\nspecified classifierId and optional description."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

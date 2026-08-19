@@ -1,0 +1,254 @@
+{
+  "item": [
+    {
+      "id": "f1c1799a-d3a3-4bc3-89e2-703623c00580",
+      "name": "DocumentClassifiers:build",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7fbffea8-fd17-470b-a985-f8861c6ac882",
+          "name": "Document Classifiers Build Classifier",
+          "request": {
+            "name": "Document Classifiers Build Classifier",
+            "description": {
+              "content": "Builds a custom document classifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "documentClassifiers:build"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"sourceKind\": \"<string>\",\n      \"azureBlobSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"prefix\": \"<string>\"\n      },\n      \"azureBlobFileListSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"fileList\": \"<string>\"\n      }\n    },\n    \"key_1\": {\n      \"sourceKind\": \"<string>\",\n      \"azureBlobSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"prefix\": \"<string>\"\n      },\n      \"azureBlobFileListSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"fileList\": \"<string>\"\n      }\n    },\n    \"key_2\": {\n      \"sourceKind\": \"<string>\",\n      \"azureBlobSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"prefix\": \"<string>\"\n      },\n      \"azureBlobFileListSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"fileList\": \"<string>\"\n      }\n    }\n  },\n  \"description\": \"<string>\",\n  \"baseClassifierId\": \"<string>\",\n  \"allowOverwrite\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc474d96-1224-4c62-adb4-d700af6cd968",
+              "name": "The request has been accepted for processing, but processing has not yet completed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentClassifiers:build"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"sourceKind\": \"<string>\",\n      \"azureBlobSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"prefix\": \"<string>\"\n      },\n      \"azureBlobFileListSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"fileList\": \"<string>\"\n      }\n    }\n  },\n  \"description\": \"<string>\",\n  \"baseClassifierId\": \"<string>\",\n  \"allowOverwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The location of an instance of DocumentClassifierBuildOperationDetails",
+                  "key": "Operation-Location",
+                  "value": "https://sOtaGuErYoLaQccpqJZwF.xvDHmsXwizYLBvJSm6sbhq4uHKOO8"
+                },
+                {
+                  "disabled": false,
+                  "description": "The Retry-After header can indicate how long the client should wait before polling the operation status.",
+                  "key": "Retry-After",
+                  "value": "5233"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4c6e1593-b110-4c1e-a1db-1486a95b91ba",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "documentClassifiers:build"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"classifierId\": \"<string>\",\n  \"docTypes\": {\n    \"key_0\": {\n      \"sourceKind\": \"<string>\",\n      \"azureBlobSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"prefix\": \"<string>\"\n      },\n      \"azureBlobFileListSource\": {\n        \"containerUrl\": \"<uri>\",\n        \"fileList\": \"<string>\"\n      }\n    }\n  },\n  \"description\": \"<string>\",\n  \"baseClassifierId\": \"<string>\",\n  \"allowOverwrite\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Document Intelligence service endpoint.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "none",
+      "key": "endpoint"
+    },
+    {
+      "type": "string",
+      "value": "{{endpoint}}/documentintelligence",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d14e6bf1-ce71-4e2a-98ac-8d3c9282c29b",
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:build API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Extracts content, layout, and structured data from documents.",
+      "type": "text/plain"
+    }
+  }
+}

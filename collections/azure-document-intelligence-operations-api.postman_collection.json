@@ -1,0 +1,448 @@
+{
+  "item": [
+    {
+      "id": "bed0b88f-9a9c-4d8d-b53e-4e65d2be80bd",
+      "name": "Operations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4cfa5b46-32be-4a3f-8bd9-8fb7b9ec86ce",
+          "name": "Miscellaneous Operations List Operations",
+          "request": {
+            "name": "Miscellaneous Operations List Operations",
+            "description": {
+              "content": "Lists all operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                "key": "x-ms-client-request-id",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ec3827f-c67d-4e17-a11c-edd9395fc63c",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                    "key": "x-ms-client-request-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                  "key": "x-ms-client-request-id",
+                  "value": "e4bbe336-003e-f234-94aa-6218d6632e11"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"value\": [\n    {\n      \"operationId\": \"string\",\n      \"status\": \"skipped\",\n      \"createdDateTime\": \"1983-04-27T04:09:33.128Z\",\n      \"lastUpdatedDateTime\": \"1995-03-13T00:58:36.918Z\",\n      \"kind\": \"documentModelBuild\",\n      \"resourceLocation\": \"http://yD.ztM1O9xeuEAKYn3OhbIg3W\",\n      \"percentCompleted\": 54,\n      \"apiVersion\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"error\": {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\",\n        \"details\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n          }\n        ],\n        \"innererror\": {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"innererror\": {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n          }\n        }\n      }\n    },\n    {\n      \"operationId\": \"string\",\n      \"status\": \"notStarted\",\n      \"createdDateTime\": \"1952-09-17T05:42:57.921Z\",\n      \"lastUpdatedDateTime\": \"2026-02-20T05:22:06.629Z\",\n      \"kind\": \"documentModelBuild\",\n      \"resourceLocation\": \"https://OTCAV.boeAfZsTOcioePk5uY9ZPt\",\n      \"percentCompleted\": 81,\n      \"apiVersion\": \"string\",\n      \"tags\": {\n        \"key_0\": \"string\"\n      },\n      \"error\": {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\",\n        \"details\": [\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n          },\n          {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n          }\n        ],\n        \"innererror\": {\n          \"code\": \"string\",\n          \"message\": \"string\",\n          \"innererror\": {\n            \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n          }\n        }\n      }\n    }\n  ],\n  \"nextLink\": \"https://TWEAkYzO.miamd6krflF4RE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "546fc5e7-5516-4be5-8c03-40c88c211c64",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                    "key": "x-ms-client-request-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c8c95a5a-cd57-4d85-87df-62fe05c0c87b",
+          "name": "Miscellaneous Operations Get Document Model Build Operation",
+          "request": {
+            "name": "Miscellaneous Operations Get Document Model Build Operation",
+            "description": {
+              "content": "Gets operation info.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "operations",
+                ":operationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "api-version",
+                  "value": "<string>",
+                  "description": "(Required) The API version to use for this operation."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operationId",
+                  "description": "(Required) Operation ID"
+                },
+                {
+                  "description": "The Document Intelligence service endpoint.",
+                  "type": "any",
+                  "value": "{{endpoint}}",
+                  "key": "endpoint"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                "key": "x-ms-client-request-id",
+                "value": "<uuid>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "61472367-7c17-435e-a7d9-d80db1220673",
+              "name": "The request has succeeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Operation ID"
+                    },
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                    "key": "x-ms-client-request-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                  "key": "x-ms-client-request-id",
+                  "value": "e4bbe336-003e-f234-94aa-6218d6632e11"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"operationId\": \"string\",\n  \"status\": \"succeeded\",\n  \"createdDateTime\": \"1955-03-15T00:06:45.044Z\",\n  \"lastUpdatedDateTime\": \"1960-09-29T02:54:43.843Z\",\n  \"kind\": \"documentClassifierCopyTo\",\n  \"resourceLocation\": \"https://bhFflFgzGRTOGOM.dluZ1y8PD.\",\n  \"result\": {\n    \"modelId\": \"khq\",\n    \"createdDateTime\": \"2002-09-23T07:05:38.918Z\",\n    \"description\": \"string\",\n    \"expirationDateTime\": \"1961-09-12T09:34:39.318Z\",\n    \"modifiedDateTime\": \"2001-03-11T19:29:10.533Z\",\n    \"apiVersion\": \"string\",\n    \"tags\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"buildMode\": \"neural\",\n    \"azureBlobSource\": {\n      \"containerUrl\": \"https://iQaeWProNAE.ggpMJhmjLD\",\n      \"prefix\": \"string\"\n    },\n    \"azureBlobFileListSource\": {\n      \"containerUrl\": \"http://XUNCpruZJySQPWfNKZUuSLsGlJyXglsMa.itHcmGpkf-WPmRcOCXV-NOws+jlqjupTcN,Z,0rSioMYpHfC8GWG9u\",\n      \"fileList\": \"string\"\n    },\n    \"classifierId\": \"string\",\n    \"split\": \"none\",\n    \"docTypes\": {\n      \"key_0\": {\n        \"description\": \"string\",\n        \"buildMode\": \"template\",\n        \"fieldSchema\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_2\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_3\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"fieldConfidence\": {\n          \"key_0\": 2217.9789046866895,\n          \"key_1\": 4068.541400704182\n        },\n        \"modelId\": \"OWhFToVaBR2ikh.GE_iym\",\n        \"confidenceThreshold\": 7450.6507991127055,\n        \"features\": [\n          \"styleFont\",\n          \"barcodes\"\n        ],\n        \"queryFields\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maxDocumentsToAnalyze\": 9673\n      },\n      \"key_1\": {\n        \"description\": \"string\",\n        \"buildMode\": \"template\",\n        \"fieldSchema\": {\n          \"key_0\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"key_1\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"fieldConfidence\": {\n          \"key_0\": 264.52886096844486,\n          \"key_1\": 1439.5164068470856,\n          \"key_2\": 9134.935413071333\n        },\n        \"modelId\": \"iF~.UTPp9NS3dT\",\n        \"confidenceThreshold\": 3945.6209174153246,\n        \"features\": [\n          \"queryFields\",\n          \"queryFields\"\n        ],\n        \"queryFields\": [\n          \"string\",\n          \"string\"\n        ],\n        \"maxDocumentsToAnalyze\": 3904\n      }\n    },\n    \"warnings\": [\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      },\n      {\n        \"code\": \"string\",\n        \"message\": \"string\",\n        \"target\": \"string\"\n      }\n    ],\n    \"trainingHours\": 5354.1108370525035\n  },\n  \"percentCompleted\": 89,\n  \"apiVersion\": \"string\",\n  \"tags\": {\n    \"key_0\": \"string\"\n  },\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cf91d52-fda7-4f76-a8ed-4a5dee9547de",
+              "name": "An unexpected error response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "api-version",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Operation ID"
+                    },
+                    {
+                      "description": "The Document Intelligence service endpoint.",
+                      "type": "any",
+                      "value": "{{endpoint}}",
+                      "key": "endpoint"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Ocp-Apim-Subscription-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "An opaque, globally-unique, client-generated string identifier for the request.",
+                    "key": "x-ms-client-request-id",
+                    "value": "<uuid>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"target\": \"string\",\n    \"details\": [\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      },\n      {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceError detected>\"\n      }\n    ],\n    \"innererror\": {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"innererror\": {\n        \"value\": \"<Circular reference to #/components/schemas/DocumentIntelligenceInnerError detected>\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Document Intelligence service endpoint.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "none",
+      "key": "endpoint"
+    },
+    {
+      "type": "string",
+      "value": "{{endpoint}}/documentintelligence",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Ocp-Apim-Subscription-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4773eb5f-e792-4a12-9046-f400f6b89bf2",
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers Operations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Extracts content, layout, and structured data from documents.",
+      "type": "text/plain"
+    }
+  }
+}

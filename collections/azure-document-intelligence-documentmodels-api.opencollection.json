@@ -1,0 +1,481 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels API",
+    "version": "2024-11-30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DocumentModels",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "DocumentModels_ListModels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              }
+            ]
+          },
+          "docs": "List all document models"
+        },
+        {
+          "info": {
+            "name": "DocumentModels_AnalyzeDocumentFromStream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentModels/:modelId:analyze",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "1-based page numbers to analyze.  Ex. \"1-3,5,7-9\""
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Locale hint for text recognition and document analysis.  Value may contain only\nthe language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\")."
+              },
+              {
+                "name": "stringIndexType",
+                "value": "",
+                "type": "query",
+                "description": "Method used to compute string offset and length."
+              },
+              {
+                "name": "features",
+                "value": "",
+                "type": "query",
+                "description": "List of optional analysis features."
+              },
+              {
+                "name": "queryFields",
+                "value": "",
+                "type": "query",
+                "description": "List of additional fields to extract.  Ex. \"NumberOfGuests,StoreNumber\""
+              },
+              {
+                "name": "outputContentFormat",
+                "value": "",
+                "type": "query",
+                "description": "Format of the analyze result top-level content."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Additional outputs to generate during analysis."
+              }
+            ]
+          },
+          "docs": "Analyzes document with document model."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_AnalyzeBatchDocuments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentModels/:modelId:analyzeBatch",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "pages",
+                "value": "",
+                "type": "query",
+                "description": "1-based page numbers to analyze.  Ex. \"1-3,5,7-9\""
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Locale hint for text recognition and document analysis.  Value may contain only\nthe language code (ex. \"en\", \"fr\") or BCP 47 language tag (ex. \"en-US\")."
+              },
+              {
+                "name": "stringIndexType",
+                "value": "",
+                "type": "query",
+                "description": "Method used to compute string offset and length."
+              },
+              {
+                "name": "features",
+                "value": "",
+                "type": "query",
+                "description": "List of optional analysis features."
+              },
+              {
+                "name": "queryFields",
+                "value": "",
+                "type": "query",
+                "description": "List of additional fields to extract.  Ex. \"NumberOfGuests,StoreNumber\""
+              },
+              {
+                "name": "outputContentFormat",
+                "value": "",
+                "type": "query",
+                "description": "Format of the analyze result top-level content."
+              },
+              {
+                "name": "output",
+                "value": "",
+                "type": "query",
+                "description": "Additional outputs to generate during analysis."
+              }
+            ]
+          },
+          "docs": "Analyzes batch documents with document model."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_GetModel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              }
+            ]
+          },
+          "docs": "Gets detailed document model information."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_DeleteModel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/documentModels/:modelId",
+            "headers": [
+              {
+                "name": "x-ms-client-request-id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              }
+            ]
+          },
+          "docs": "Deletes document model."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_CopyModelTo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/documentModels/:modelId:copyTo",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              }
+            ]
+          },
+          "docs": "Copies document model to the target resource, region, and modelId."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_ListAnalyzeBatchResults",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeBatchResults",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              }
+            ]
+          },
+          "docs": "List batch document analysis results."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_GetAnalyzeBatchResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeBatchResults/:resultId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze batch operation result ID."
+              }
+            ]
+          },
+          "docs": "Gets the result of batch document analysis."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_DeleteAnalyzeBatchResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeBatchResults/:resultId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze batch operation result ID."
+              }
+            ]
+          },
+          "docs": "Mark the batch document analysis result for deletion."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_GetAnalyzeResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeResults/:resultId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze operation result ID."
+              }
+            ]
+          },
+          "docs": "Gets the result of document analysis."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_DeleteAnalyzeResult",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeResults/:resultId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze operation result ID."
+              }
+            ]
+          },
+          "docs": "Mark the result of document analysis for deletion."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_GetAnalyzeResultFigure",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeResults/:resultId/figures/:figureId",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze operation result ID."
+              },
+              {
+                "name": "figureId",
+                "value": "",
+                "type": "path",
+                "description": "Figure ID."
+              }
+            ]
+          },
+          "docs": "Gets the generated cropped image of specified figure from document analysis."
+        },
+        {
+          "info": {
+            "name": "DocumentModels_GetAnalyzeResultPdf",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/documentModels/:modelId/analyzeResults/:resultId/pdf",
+            "params": [
+              {
+                "name": "api-version",
+                "value": "",
+                "type": "query",
+                "description": "The API version to use for this operation."
+              },
+              {
+                "name": "modelId",
+                "value": "",
+                "type": "path",
+                "description": "Unique document model name."
+              },
+              {
+                "name": "resultId",
+                "value": "",
+                "type": "path",
+                "description": "Analyze operation result ID."
+              }
+            ]
+          },
+          "docs": "Gets the generated searchable PDF output from document analysis."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
