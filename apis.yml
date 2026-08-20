@@ -22,6 +22,14 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/azure-document-intelligence.png
 tags:
+  - Artificial Intelligence
+  - Document AI
+  - Azure
+  - IDP
+  - OCR
+  - Microsoft
+  - REST
+tags_raw:
   - AI
   - Document AI
   - Azure
@@ -215,7 +223,8 @@ apis:
   description: The Operations API from Azure AI Document Intelligence — 2 operation(s) for operations.
   humanURL: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/
   baseURL: https://<your-resource>.cognitiveservices.azure.com
-  tags:
+  tags: []
+  tags_raw:
   - Operations
   properties:
   - type: OpenAPI
