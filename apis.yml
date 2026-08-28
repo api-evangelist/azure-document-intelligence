@@ -7,6 +7,18 @@ description: >-
   exposes prebuilt models for invoices, receipts, IDs, business cards, tax forms and contracts, plus a layout/OCR Read
   model and a Custom-model framework for fine-tuned extraction. The 2024- 11-30 GA REST API is the current stable
   surface; preview APIs add Custom Generative Extraction.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
