@@ -1,16 +1,12 @@
-swagger: '2.0'
+openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:authorizeCopy API
+  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Document Classifiers:authorize Copy API
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-schemes:
-- https
-consumes:
-- application/json
-produces:
-- application/json
+servers:
+- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
@@ -25,151 +21,159 @@ paths:
 
         specified classifierId and optional description.'
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
-      - name: authorizeCopyRequest
-        in: body
-        description: Authorize copy request parameters.
-        required: true
-        schema:
-          $ref: '#/definitions/AuthorizeClassifierCopyRequest'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       responses:
         '200':
           description: The request has succeeded.
-          schema:
-            $ref: '#/definitions/ClassifierCopyAuthorization'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassifierCopyAuthorization'
         default:
           description: An unexpected error response.
-          schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Authorize Copy of Document Classifier:
           $ref: ./examples/AuthorizeCopyDocumentClassifier.json
       tags:
       - DocumentClassifiers:authorizeCopy
-definitions:
-  DocumentIntelligenceErrorResponse:
-    type: object
-    description: Error response object.
-    properties:
-      error:
-        $ref: '#/definitions/DocumentIntelligenceError'
-        description: Error info.
-    required:
-    - error
-  AuthorizeClassifierCopyRequest:
-    type: object
-    description: Request body to authorize document classifier copy.
-    properties:
-      classifierId:
-        type: string
-        description: Unique document classifier name.
-        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-      description:
-        type: string
-        description: Document classifier description.
-        maxLength: 4096
-      tags:
-        type: object
-        description: List of key-value tag attributes associated with the document classifier.
-        additionalProperties:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizeClassifierCopyRequest'
+        description: Authorize copy request parameters.
+        required: true
+components:
+  schemas:
+    AuthorizeClassifierCopyRequest:
+      type: object
+      description: Request body to authorize document classifier copy.
+      properties:
+        classifierId:
           type: string
-    required:
-    - classifierId
-  DocumentIntelligenceInnerError:
-    type: object
-    description: An object containing more specific information about the error.
-    properties:
-      code:
-        type: string
-        description: One of a server-defined set of error codes.
-      message:
-        type: string
-        description: A human-readable representation of the error.
-      innererror:
-        $ref: '#/definitions/DocumentIntelligenceInnerError'
-        description: Inner error.
-  DocumentIntelligenceError:
-    type: object
-    description: The error object.
-    properties:
-      code:
-        type: string
-        description: One of a server-defined set of error codes.
-      message:
-        type: string
-        description: A human-readable representation of the error.
-      target:
-        type: string
-        description: The target of the error.
-      details:
-        type: array
-        description: An array of details about specific errors that led to this reported error.
-        items:
-          $ref: '#/definitions/DocumentIntelligenceError'
-      innererror:
-        $ref: '#/definitions/DocumentIntelligenceInnerError'
-        description: An object containing more specific information than the current object about the error.
-    required:
-    - code
-    - message
-  ClassifierCopyAuthorization:
-    type: object
-    description: 'Authorization to copy a document classifier to the specified target resource and
+          description: Unique document classifier name.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        description:
+          type: string
+          description: Document classifier description.
+          maxLength: 4096
+        tags:
+          type: object
+          description: List of key-value tag attributes associated with the document classifier.
+          additionalProperties:
+            type: string
+      required:
+      - classifierId
+    ClassifierCopyAuthorization:
+      type: object
+      description: 'Authorization to copy a document classifier to the specified target resource and
 
-      classifierId.'
-    properties:
-      targetResourceId:
-        type: string
-        description: ID of the target Azure resource where the document classifier should be copied to.
-      targetResourceRegion:
-        type: string
-        description: 'Location of the target Azure resource where the document classifier should be copied
+        classifierId.'
+      properties:
+        targetResourceId:
+          type: string
+          description: ID of the target Azure resource where the document classifier should be copied to.
+        targetResourceRegion:
+          type: string
+          description: 'Location of the target Azure resource where the document classifier should be copied
 
-          to.'
-      targetClassifierId:
+            to.'
+        targetClassifierId:
+          type: string
+          description: Identifier of the target document classifier.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        targetClassifierLocation:
+          type: string
+          format: uri
+          description: URL of the copied document classifier in the target account.
+        accessToken:
+          type: string
+          description: Token used to authorize the request.
+        expirationDateTime:
+          type: string
+          format: date-time
+          description: Date/time when the access token expires.
+      required:
+      - targetResourceId
+      - targetResourceRegion
+      - targetClassifierId
+      - targetClassifierLocation
+      - accessToken
+      - expirationDateTime
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
         type: string
-        description: Identifier of the target document classifier.
-        pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-      targetClassifierLocation:
-        type: string
-        format: uri
-        description: URL of the copied document classifier in the target account.
-      accessToken:
-        type: string
-        description: Token used to authorize the request.
-      expirationDateTime:
-        type: string
-        format: date-time
-        description: Date/time when the access token expires.
-    required:
-    - targetResourceId
-    - targetResourceRegion
-    - targetClassifierId
-    - targetClassifierLocation
-    - accessToken
-    - expirationDateTime
-parameters:
-  Azure.Core.Foundations.ApiVersionParameter:
-    name: api-version
-    in: query
-    description: The API version to use for this operation.
-    required: true
-    type: string
-    minLength: 1
-    x-ms-parameter-location: method
-    x-ms-client-name: apiVersion
-securityDefinitions:
-  ApiKeyAuth:
-    type: apiKey
-    name: Ocp-Apim-Subscription-Key
-    in: header
-  OAuth2Auth:
-    type: oauth2
-    flow: accessCode
-    authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
-    scopes:
-      https://cognitiveservices.azure.com/.default: ''
-    tokenUrl: https://login.microsoftonline.com/common/oauth2/token
+        minLength: 1
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Ocp-Apim-Subscription-Key
+      in: header
+    OAuth2Auth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          scopes:
+            https://cognitiveservices.azure.com/.default: ''
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/token
 x-ms-parameterized-host:
   hostTemplate: '{endpoint}/documentintelligence'
   useSchemePrefix: false
@@ -187,17 +191,17 @@ x-ms-paths:
       operationId: DocumentClassifiers_ClassifyDocument
       description: Classifies document with document classifier.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
-      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.classifierId'
-      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.stringIndexType'
-      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.split'
-      - $ref: '#/parameters/DocumentClassifierAnalyzeRequestParams.pages'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/DocumentClassifierAnalyzeRequestParams.classifierId'
+      - $ref: '#/components/parameters/DocumentClassifierAnalyzeRequestParams.stringIndexType'
+      - $ref: '#/components/parameters/DocumentClassifierAnalyzeRequestParams.split'
+      - $ref: '#/components/parameters/DocumentClassifierAnalyzeRequestParams.pages'
       - name: classifyRequest
         in: body
         description: Classify request parameters.
         required: true
         schema:
-          $ref: '#/definitions/ClassifyDocumentRequest'
+          $ref: '#/components/schemas/ClassifyDocumentRequest'
       responses:
         '202':
           description: The request has been accepted for processing, but processing has not yet completed.
@@ -213,7 +217,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Classify Document from Url:
           $ref: ./examples/ClassifyDocument_Url.json
@@ -223,21 +227,21 @@ x-ms-paths:
       operationId: DocumentModels_AnalyzeDocument
       description: Analyzes document with document model.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.modelId'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.pages'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.locale'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.stringIndexType'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.features'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.queryFields'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.outputContentFormat'
-      - $ref: '#/parameters/DocumentModelAnalyzeRequestParams.output'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.modelId'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.pages'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.locale'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.stringIndexType'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.features'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.queryFields'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.outputContentFormat'
+      - $ref: '#/components/parameters/DocumentModelAnalyzeRequestParams.output'
       - name: analyzeRequest
         in: body
         description: Analyze request parameters.
         required: true
         schema:
-          $ref: '#/definitions/AnalyzeDocumentRequest'
+          $ref: '#/components/schemas/AnalyzeDocumentRequest'
       responses:
         '202':
           description: The request has been accepted for processing, but processing has not yet completed.
@@ -253,7 +257,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Analyze Document from Base64:
           $ref: ./examples/AnalyzeDocument_Base64.json
@@ -265,18 +269,18 @@ x-ms-paths:
       operationId: MiscellaneousOperations_GetDocumentClassifierBuildOperation
       description: Gets operation info.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       - name: operationId
         in: path
         description: Operation ID
         required: true
         type: string
-      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      - $ref: '#/components/parameters/Azure.Core.ClientRequestIdHeader'
       responses:
         '200':
           description: The request has succeeded.
           schema:
-            $ref: '#/definitions/DocumentClassifierBuildOperationDetails'
+            $ref: '#/components/schemas/DocumentClassifierBuildOperationDetails'
           headers:
             x-ms-client-request-id:
               type: string
@@ -285,7 +289,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Get Operation - Document Classifier Build:
           $ref: ./examples/GetOperation_DocumentClassifierBuild.json
@@ -294,18 +298,18 @@ x-ms-paths:
       operationId: MiscellaneousOperations_GetDocumentClassifierCopyToOperation
       description: Gets operation info.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       - name: operationId
         in: path
         description: Operation ID
         required: true
         type: string
-      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      - $ref: '#/components/parameters/Azure.Core.ClientRequestIdHeader'
       responses:
         '200':
           description: The request has succeeded.
           schema:
-            $ref: '#/definitions/DocumentClassifierCopyToOperationDetails'
+            $ref: '#/components/schemas/DocumentClassifierCopyToOperationDetails'
           headers:
             x-ms-client-request-id:
               type: string
@@ -314,7 +318,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Get Operation - Document Classifier Copy To:
           $ref: ./examples/GetOperation_DocumentClassifierCopyTo.json
@@ -323,18 +327,18 @@ x-ms-paths:
       operationId: MiscellaneousOperations_GetDocumentModelComposeOperation
       description: Gets operation info.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       - name: operationId
         in: path
         description: Operation ID
         required: true
         type: string
-      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      - $ref: '#/components/parameters/Azure.Core.ClientRequestIdHeader'
       responses:
         '200':
           description: The request has succeeded.
           schema:
-            $ref: '#/definitions/DocumentModelComposeOperationDetails'
+            $ref: '#/components/schemas/DocumentModelComposeOperationDetails'
           headers:
             x-ms-client-request-id:
               type: string
@@ -343,7 +347,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Get Operation - Document Model Compose:
           $ref: ./examples/GetOperation_DocumentModelCompose.json
@@ -352,18 +356,18 @@ x-ms-paths:
       operationId: MiscellaneousOperations_GetDocumentModelCopyToOperation
       description: Gets operation info.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       - name: operationId
         in: path
         description: Operation ID
         required: true
         type: string
-      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      - $ref: '#/components/parameters/Azure.Core.ClientRequestIdHeader'
       responses:
         '200':
           description: The request has succeeded.
           schema:
-            $ref: '#/definitions/DocumentModelCopyToOperationDetails'
+            $ref: '#/components/schemas/DocumentModelCopyToOperationDetails'
           headers:
             x-ms-client-request-id:
               type: string
@@ -372,7 +376,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Get Operation - Document Model Copy To:
           $ref: ./examples/GetOperation_DocumentModelCopyTo.json
@@ -381,18 +385,18 @@ x-ms-paths:
       operationId: MiscellaneousOperations_GetOperation
       description: Gets operation info.
       parameters:
-      - $ref: '#/parameters/Azure.Core.Foundations.ApiVersionParameter'
+      - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       - name: operationId
         in: path
         description: Operation ID
         required: true
         type: string
-      - $ref: '#/parameters/Azure.Core.ClientRequestIdHeader'
+      - $ref: '#/components/parameters/Azure.Core.ClientRequestIdHeader'
       responses:
         '200':
           description: The request has succeeded.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceOperationDetails'
+            $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
           headers:
             x-ms-client-request-id:
               type: string
@@ -401,7 +405,7 @@ x-ms-paths:
         default:
           description: An unexpected error response.
           schema:
-            $ref: '#/definitions/DocumentIntelligenceErrorResponse'
+            $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
         Get Operation:
           $ref: ./examples/GetOperation.json

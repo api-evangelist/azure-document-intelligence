@@ -25,6 +25,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "azure-document-intelligence-documentclassifiers-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentclassifiers-build-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentmodels-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentmodels-build-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-documentmodels-compose-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-info-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-operations-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }
