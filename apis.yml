@@ -1,5 +1,5 @@
 aid: azure-document-intelligence
-url: https://raw.githubusercontent.com/api-evangelist/azure-document-intelligence/refs/heads/main/apis.yml
+url: https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence
 name: Azure AI Document Intelligence
 kind: company
 description: >-
