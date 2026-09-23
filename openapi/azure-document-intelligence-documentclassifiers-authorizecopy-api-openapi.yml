@@ -1,12 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Document Classifiers:authorize Copy API
+  title: Document Intelligence (formerly Form Recognizer) Document…
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
@@ -38,8 +36,6 @@ paths:
       x-ms-examples:
         Authorize Copy of Document Classifier:
           $ref: ./examples/AuthorizeCopyDocumentClassifier.json
-      tags:
-      - DocumentClassifiers:authorizeCopy
       requestBody:
         content:
           application/json:
@@ -47,27 +43,60 @@ paths:
               $ref: '#/components/schemas/AuthorizeClassifierCopyRequest'
         description: Authorize copy request parameters.
         required: true
+      tags:
+      - DocumentClassifiers:authorizeCopy
+      summary: Document classifiers authorize classifier copy
+      x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
-    AuthorizeClassifierCopyRequest:
+    DocumentIntelligenceInnerError:
       type: object
-      description: Request body to authorize document classifier copy.
+      description: An object containing more specific information about the error.
       properties:
-        classifierId:
+        code:
           type: string
-          description: Unique document classifier name.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        description:
+          description: One of a server-defined set of error codes.
+        message:
           type: string
-          description: Document classifier description.
-          maxLength: 4096
-        tags:
-          type: object
-          description: List of key-value tag attributes associated with the document classifier.
-          additionalProperties:
-            type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
       required:
-      - classifierId
+      - code
+      - message
     ClassifierCopyAuthorization:
       type: object
       description: 'Authorization to copy a document classifier to the specified target resource and
@@ -104,30 +133,6 @@ components:
       - targetClassifierLocation
       - accessToken
       - expirationDateTime
-    DocumentIntelligenceError:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
     DocumentIntelligenceErrorResponse:
       type: object
       description: Error response object.
@@ -137,30 +142,25 @@ components:
           description: Error info.
       required:
       - error
-    DocumentIntelligenceInnerError:
+    AuthorizeClassifierCopyRequest:
       type: object
-      description: An object containing more specific information about the error.
+      description: Request body to authorize document classifier copy.
       properties:
-        code:
+        classifierId:
           type: string
-          description: One of a server-defined set of error codes.
-        message:
+          description: Unique document classifier name.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        description:
           type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
+          description: Document classifier description.
+          maxLength: 4096
+        tags:
+          type: object
+          description: List of key-value tag attributes associated with the document classifier.
+          additionalProperties:
+            type: string
+      required:
+      - classifierId
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

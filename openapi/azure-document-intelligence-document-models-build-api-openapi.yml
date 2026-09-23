@@ -1,34 +1,37 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Document Models:authorize Copy API
+  title: Document Intelligence (formerly Form Recognizer) Document…
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
   - https://cognitiveservices.azure.com/.default
 tags:
-- name: DocumentModels:authorizeCopy
+- name: Document Models:build
 paths:
-  /documentModels:authorizeCopy:
+  /documentModels:build:
     post:
-      operationId: DocumentModels_AuthorizeModelCopy
-      description: 'Generates authorization to copy a document model to this location with
-
-        specified modelId and optional description.'
+      operationId: DocumentModels_BuildModel
+      description: Builds a custom document analysis model.
       parameters:
       - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
+        '202':
+          description: The request has been accepted for processing, but processing has not yet completed.
+          headers:
+            Operation-Location:
+              description: The location of an instance of DocumentModelBuildOperationDetails
               schema:
-                $ref: '#/components/schemas/ModelCopyAuthorization'
+                type: string
+                format: uri
+            Retry-After:
+              description: The Retry-After header can indicate how long the client should wait before polling the operation status.
+              schema:
+                type: integer
+                format: int32
         default:
           description: An unexpected error response.
           content:
@@ -36,22 +39,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
-        Authorize Copy of Document Model:
-          $ref: ./examples/AuthorizeCopyDocumentModel.json
-      tags:
-      - DocumentModels:authorizeCopy
+        Build Document Model:
+          $ref: ./examples/BuildDocumentModel.json
+      x-ms-long-running-operation: true
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthorizeCopyRequest'
-        description: Authorize copy request parameters.
+              $ref: '#/components/schemas/BuildDocumentModelRequest'
+        description: Build request parameters.
         required: true
+      tags:
+      - Document Models:build
+      summary: Document models build model
+      x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
-    AuthorizeCopyRequest:
+    BuildDocumentModelRequest:
       type: object
-      description: Request body to authorize document model copy.
+      description: Request body to build a new custom document model.
       properties:
         modelId:
           type: string
@@ -61,49 +78,49 @@ components:
           type: string
           description: Document model description.
           maxLength: 4096
+        buildMode:
+          $ref: '#/components/schemas/DocumentBuildMode'
+          description: Custom document model build mode.
+        azureBlobSource:
+          $ref: '#/components/schemas/AzureBlobContentSource'
+          description: 'Azure Blob Storage location containing the training data.  Either
+
+            azureBlobSource or azureBlobFileListSource must be specified.'
+        azureBlobFileListSource:
+          $ref: '#/components/schemas/AzureBlobFileListContentSource'
+          description: 'Azure Blob Storage file list specifying the training data.  Either
+
+            azureBlobSource or azureBlobFileListSource must be specified.'
         tags:
           type: object
           description: List of key-value tag attributes associated with the document model.
           additionalProperties:
             type: string
+        maxTrainingHours:
+          type: number
+          format: float
+          description: Max number of V100-equivalent GPU hours to use for model training.  Default=0.5.
+          default: 0.5
+        allowOverwrite:
+          type: boolean
+          description: Allow overwriting an existing model with the same name.
+          default: false
       required:
       - modelId
-    ModelCopyAuthorization:
+      - buildMode
+    DocumentIntelligenceInnerError:
       type: object
-      description: 'Authorization to copy a document model to the specified target resource and
-
-        modelId.'
+      description: An object containing more specific information about the error.
       properties:
-        targetResourceId:
+        code:
           type: string
-          description: ID of the target Azure resource where the document model should be copied to.
-        targetResourceRegion:
+          description: One of a server-defined set of error codes.
+        message:
           type: string
-          description: 'Location of the target Azure resource where the document model should be copied
-
-            to.'
-        targetModelId:
-          type: string
-          description: Identifier of the target document model.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        targetModelLocation:
-          type: string
-          format: uri
-          description: URL of the copied document model in the target account.
-        accessToken:
-          type: string
-          description: Token used to authorize the request.
-        expirationDateTime:
-          type: string
-          format: date-time
-          description: Date/time when the access token expires.
-      required:
-      - targetResourceId
-      - targetResourceRegion
-      - targetModelId
-      - targetModelLocation
-      - accessToken
-      - expirationDateTime
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -128,6 +145,49 @@ components:
       required:
       - code
       - message
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
+    DocumentBuildMode:
+      type: string
+      description: Custom document model build mode.
+      enum:
+      - template
+      - neural
+      x-ms-enum:
+        name: DocumentBuildMode
+        modelAsString: true
+        values:
+        - name: template
+          value: template
+          description: Target documents with similar visual templates.
+        - name: neural
+          value: neural
+          description: Support documents with diverse visual templates.
     DocumentIntelligenceErrorResponse:
       type: object
       description: Error response object.
@@ -137,30 +197,6 @@ components:
           description: Error info.
       required:
       - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

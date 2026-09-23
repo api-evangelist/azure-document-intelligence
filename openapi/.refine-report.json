@@ -1,15 +1,7 @@
 {
   "provider": "azure-document-intelligence",
   "sources": [
-    "azure-document-intelligence-documentclassifiers-api-openapi.yml",
-    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml",
-    "azure-document-intelligence-documentclassifiers-build-api-openapi.yml",
-    "azure-document-intelligence-documentmodels-api-openapi.yml",
-    "azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml",
-    "azure-document-intelligence-documentmodels-build-api-openapi.yml",
-    "azure-document-intelligence-documentmodels-compose-api-openapi.yml",
-    "azure-document-intelligence-info-api-openapi.yml",
-    "azure-document-intelligence-operations-api-openapi.yml"
+    "_original/azure-document-intelligence-openapi.json"
   ],
   "outputs": [
     "azure-document-intelligence-documentclassifiers-api-openapi.yml",
@@ -22,20 +14,62 @@
     "azure-document-intelligence-info-api-openapi.yml",
     "azure-document-intelligence-operations-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 6 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "azure-document-intelligence-documentclassifiers-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentclassifiers-build-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentmodels-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentmodels-authorizecopy-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentmodels-build-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-documentmodels-compose-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-info-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "azure-document-intelligence-operations-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "azure-document-intelligence-openapi.json: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentClassifiers -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentClassifiers/{classifierId} -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths DELETE /documentClassifiers/{classifierId} -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentClassifiers/{classifierId}:analyze -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentClassifiers/{classifierId}:copyTo -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentClassifiers/{classifierId}/analyzeResults/{resultId} -> DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentClassifiers:authorizeCopy -> DocumentClassifiers:authorizeCopy",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentClassifiers:build -> DocumentClassifiers:build",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels/{modelId}:analyze -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels/{modelId}:analyzeBatch -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths DELETE /documentModels/{modelId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels/{modelId}:copyTo -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId}/analyzeBatchResults -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId}/analyzeBatchResults/{resultId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths DELETE /documentModels/{modelId}/analyzeBatchResults/{resultId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId}/analyzeResults/{resultId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths DELETE /documentModels/{modelId}/analyzeResults/{resultId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId}/analyzeResults/{resultId}/figures/{figureId} -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths GET /documentModels/{modelId}/analyzeResults/{resultId}/pdf -> DocumentModels",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels:authorizeCopy -> DocumentModels:authorizeCopy",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels:build -> DocumentModels:build",
+    "azure-document-intelligence-openapi.json: tagged paths POST /documentModels:compose -> DocumentModels:compose",
+    "azure-document-intelligence-openapi.json: tagged paths GET /info -> Info",
+    "azure-document-intelligence-openapi.json: tagged paths GET /operations -> Operations",
+    "azure-document-intelligence-openapi.json: tagged paths GET /operations/{operationId} -> Operations",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentClassifiers",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentClassifiers:authorizeCopy",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentClassifiers:build",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentModels",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentModels:authorizeCopy",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentModels:build",
+    "azure-document-intelligence-openapi.json: declared missing tag: DocumentModels:compose",
+    "azure-document-intelligence-openapi.json: declared missing tag: Info",
+    "azure-document-intelligence-openapi.json: declared missing tag: Operations",
+    "superseded outputs removed: azure-document-intelligence-document-classifiers-api-openapi.yml, azure-document-intelligence-document-classifiers-build-api-openapi.yml, azure-document-intelligence-document-models-api-openapi.yml, azure-document-intelligence-document-models-authorize-copy-api-openapi.yml, azure-document-intelligence-document-models-build-api-openapi.yml \u2026",
+    "apis.yml register: written (+6 apis, 9 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "azure-document-intelligence-document-classifiers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-document-classifiers-build-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-document-models-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-document-models-authorize-copy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-document-models-build-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-document-models-compose-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-documentclassifiers-authorizecopy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-info-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "azure-document-intelligence-operations-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

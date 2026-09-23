@@ -1,23 +1,21 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Document Models:compose API
+  title: Document Intelligence (formerly Form Recognizer) Document…
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
   - https://cognitiveservices.azure.com/.default
 tags:
-- name: DocumentModels:compose
+- name: Document Classifiers:build
 paths:
-  /documentModels:compose:
+  /documentClassifiers:build:
     post:
-      operationId: DocumentModels_ComposeModel
-      description: Creates a new document model from document types of existing document models.
+      operationId: DocumentClassifiers_BuildClassifier
+      description: Builds a custom document classifier.
       parameters:
       - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       responses:
@@ -25,7 +23,7 @@ paths:
           description: The request has been accepted for processing, but processing has not yet completed.
           headers:
             Operation-Location:
-              description: The location of an instance of DocumentModelComposeOperationDetails
+              description: The location of an instance of DocumentClassifierBuildOperationDetails
               schema:
                 type: string
                 format: uri
@@ -41,223 +39,119 @@ paths:
               schema:
                 $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
-        Compose Document Model:
-          $ref: ./examples/ComposeDocumentModel.json
+        Build Document Classifier:
+          $ref: ./examples/BuildDocumentClassifier.json
       x-ms-long-running-operation: true
-      tags:
-      - DocumentModels:compose
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ComposeDocumentModelRequest'
-        description: Compose request parameters.
+              $ref: '#/components/schemas/BuildDocumentClassifierRequest'
+        description: Build request parameters.
         required: true
+      tags:
+      - Document Classifiers:build
+      summary: Document classifiers build classifier
+      x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
-    DocumentFieldType:
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+    ContentSourceKind:
       type: string
-      description: Semantic data type of the field value.
+      description: Type of content source.
       enum:
-      - string
-      - date
-      - time
-      - phoneNumber
-      - number
-      - integer
-      - selectionMark
-      - countryRegion
-      - signature
-      - array
-      - object
-      - currency
-      - address
-      - boolean
-      - selectionGroup
+      - url
+      - base64
+      - azureBlob
+      - azureBlobFileList
       x-ms-enum:
-        name: DocumentFieldType
+        name: ContentSourceKind
         modelAsString: true
         values:
-        - name: string
-          value: string
-          description: Plain text.
-        - name: date
-          value: date
-          description: Date, normalized to ISO 8601 (YYYY-MM-DD) format.
-        - name: time
-          value: time
-          description: Time, normalized to ISO 8601 (hh:mm:ss) format.
-        - name: phoneNumber
-          value: phoneNumber
-          description: Phone number, normalized to E.164 (+{CountryCode}{SubscriberNumber}) format.
-        - name: number
-          value: number
-          description: Floating point number, normalized to double precision floating point.
-        - name: integer
-          value: integer
-          description: Integer number, normalized to 64-bit signed integer.
-        - name: selectionMark
-          value: selectionMark
-          description: Is field selected?
-        - name: countryRegion
-          value: countryRegion
-          description: Country/region, normalized to ISO 3166-1 alpha-3 format (ex. USA).
-        - name: signature
-          value: signature
-          description: Is signature present?
-        - name: array
-          value: array
-          description: List of subfields of the same type.
-        - name: object
-          value: object
-          description: Named list of subfields of potentially different types.
-        - name: currency
-          value: currency
-          description: Currency amount with optional currency symbol and unit.
-        - name: address
-          value: address
-          description: Parsed address.
-        - name: boolean
-          value: boolean
-          description: Boolean value, normalized to true or false.
-        - name: selectionGroup
-          value: selectionGroup
-          description: Array of selected string values.
-    DocumentBuildMode:
-      type: string
-      description: Custom document model build mode.
-      enum:
-      - template
-      - neural
-      x-ms-enum:
-        name: DocumentBuildMode
-        modelAsString: true
-        values:
-        - name: template
-          value: template
-          description: Target documents with similar visual templates.
-        - name: neural
-          value: neural
-          description: Support documents with diverse visual templates.
-    DocumentTypeDetails:
+        - name: url
+          value: url
+          description: Content at a specific URL.
+        - name: base64
+          value: base64
+          description: Content represented via Base64 encoding.
+        - name: azureBlob
+          value: azureBlob
+          description: Files in a path within an Azure Blob Storage container.
+        - name: azureBlobFileList
+          value: azureBlobFileList
+          description: A file list specifying individual files in an Azure Blob Storage container.
+    ClassifierDocumentTypeDetails:
       type: object
-      description: Document type info.
+      description: Classifier document type info.
       properties:
-        description:
-          type: string
-          description: Document model description.
-          maxLength: 4096
-        buildMode:
-          $ref: '#/components/schemas/DocumentBuildMode'
-          description: Custom document model build mode.
-        fieldSchema:
-          type: object
-          description: Description of the document semantic schema using a JSON Schema style syntax.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-        fieldConfidence:
-          type: object
-          description: Estimated confidence for each field.
-          additionalProperties:
-            format: float
-            type: number
-        modelId:
-          type: string
-          description: Document model to use for analyzing documents with specified type.
-          maxLength: 64
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        confidenceThreshold:
-          type: number
-          format: float
-          description: Only perform analysis if docType confidence is above threshold.
-        features:
-          type: array
-          description: List of optional analysis features.
-          items:
-            $ref: '#/components/schemas/DocumentAnalysisFeature'
-        queryFields:
-          type: array
-          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
-          items:
-            type: string
-        maxDocumentsToAnalyze:
-          type: integer
-          format: int32
-          description: Maximum number of documents of specified type to analyze.  Default=all.
-    ComposeDocumentModelRequest:
+        sourceKind:
+          $ref: '#/components/schemas/ContentSourceKind'
+          description: Type of training data source.
+        azureBlobSource:
+          $ref: '#/components/schemas/AzureBlobContentSource'
+          description: 'Azure Blob Storage location containing the training data for a classifier
+
+            document type.  Either azureBlobSource or azureBlobFileListSource must be
+
+            specified.'
+        azureBlobFileListSource:
+          $ref: '#/components/schemas/AzureBlobFileListContentSource'
+          description: 'Azure Blob Storage file list specifying the training data for a classifier
+
+            document type.  Either azureBlobSource or azureBlobFileListSource must be
+
+            specified.'
+    BuildDocumentClassifierRequest:
       type: object
-      description: Request body to create a composed document model from component document models.
+      description: Request body to build a new custom document classifier.
       properties:
-        modelId:
-          type: string
-          description: Unique document model name.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        description:
-          type: string
-          description: Document model description.
-          maxLength: 4096
         classifierId:
           type: string
-          description: Custom classifier to split and classify the input file.
-        split:
-          type: string
-          description: File splitting behavior.
-          default: none
-          enum:
-          - auto
-          - none
-          - perPage
-          x-ms-enum:
-            name: SplitMode
-            modelAsString: true
-            values:
-            - name: auto
-              value: auto
-              description: Automatically split file into documents.
-            - name: none
-              value: none
-              description: Treat the entire file as a single document.
-            - name: perPage
-              value: perPage
-              description: Treat each page in the file as a separate document.
-        docTypes:
-          type: object
-          description: Dictionary mapping supported docTypes to the corresponding document models.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentTypeDetails'
-        tags:
-          type: object
-          description: List of key-value tag attributes associated with the document model.
-          additionalProperties:
-            type: string
-      required:
-      - modelId
-      - classifierId
-      - docTypes
-    DocumentFieldSchema:
-      type: object
-      description: Description of the field semantic schema using a JSON Schema style syntax.
-      properties:
-        type:
-          $ref: '#/components/schemas/DocumentFieldType'
-          description: Semantic data type of the field value.
+          description: Unique document classifier name.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
         description:
           type: string
-          description: Field description.
+          description: Document classifier description.
           maxLength: 4096
-        example:
+        baseClassifierId:
           type: string
-          description: Example field content.
-        items:
-          $ref: '#/components/schemas/DocumentFieldSchema'
-          description: Field type schema of each array element.
-        properties:
+          description: Base classifierId on top of which to train the classifier.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        docTypes:
           type: object
-          description: Named sub-fields of the object field.
+          description: List of document types to classify against.
           additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
+            $ref: '#/components/schemas/ClassifierDocumentTypeDetails'
+        allowOverwrite:
+          type: boolean
+          description: Allow overwriting an existing classifier with the same name.
+          default: false
       required:
-      - type
+      - classifierId
+      - docTypes
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -282,6 +176,33 @@ components:
       required:
       - code
       - message
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
     DocumentIntelligenceErrorResponse:
       type: object
       description: Error response object.
@@ -291,66 +212,6 @@ components:
           description: Error info.
       required:
       - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    DocumentAnalysisFeature:
-      type: string
-      description: Document analysis features to enable.
-      enum:
-      - ocrHighResolution
-      - languages
-      - barcodes
-      - formulas
-      - keyValuePairs
-      - styleFont
-      - queryFields
-      x-ms-enum:
-        name: DocumentAnalysisFeature
-        modelAsString: true
-        values:
-        - name: ocrHighResolution
-          value: ocrHighResolution
-          description: Perform OCR at a higher resolution to handle documents with fine print.
-        - name: languages
-          value: languages
-          description: Enable the detection of the text content language.
-        - name: barcodes
-          value: barcodes
-          description: Enable the detection of barcodes in the document.
-        - name: formulas
-          value: formulas
-          description: Enable the detection of mathematical expressions in the document.
-        - name: keyValuePairs
-          value: keyValuePairs
-          description: Enable the detection of general key value pairs (form fields) in the document.
-        - name: styleFont
-          value: styleFont
-          description: Enable the recognition of various font styles.
-        - name: queryFields
-          value: queryFields
-          description: Enable the extraction of additional fields via the queryFields query parameter.
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

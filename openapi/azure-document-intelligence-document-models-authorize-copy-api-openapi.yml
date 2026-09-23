@@ -1,39 +1,32 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Document Classifiers:build API
+  title: Document Intelligence (formerly Form Recognizer) Document…
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
   - https://cognitiveservices.azure.com/.default
 tags:
-- name: DocumentClassifiers:build
+- name: Document Models:authorize Copy
 paths:
-  /documentClassifiers:build:
+  /documentModels:authorizeCopy:
     post:
-      operationId: DocumentClassifiers_BuildClassifier
-      description: Builds a custom document classifier.
+      operationId: DocumentModels_AuthorizeModelCopy
+      description: 'Generates authorization to copy a document model to this location with
+
+        specified modelId and optional description.'
       parameters:
       - $ref: '#/components/parameters/Azure.Core.Foundations.ApiVersionParameter'
       responses:
-        '202':
-          description: The request has been accepted for processing, but processing has not yet completed.
-          headers:
-            Operation-Location:
-              description: The location of an instance of DocumentClassifierBuildOperationDetails
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
               schema:
-                type: string
-                format: uri
-            Retry-After:
-              description: The Retry-After header can indicate how long the client should wait before polling the operation status.
-              schema:
-                type: integer
-                format: int32
+                $ref: '#/components/schemas/ModelCopyAuthorization'
         default:
           description: An unexpected error response.
           content:
@@ -41,99 +34,64 @@ paths:
               schema:
                 $ref: '#/components/schemas/DocumentIntelligenceErrorResponse'
       x-ms-examples:
-        Build Document Classifier:
-          $ref: ./examples/BuildDocumentClassifier.json
-      x-ms-long-running-operation: true
-      tags:
-      - DocumentClassifiers:build
+        Authorize Copy of Document Model:
+          $ref: ./examples/AuthorizeCopyDocumentModel.json
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BuildDocumentClassifierRequest'
-        description: Build request parameters.
+              $ref: '#/components/schemas/AuthorizeCopyRequest'
+        description: Authorize copy request parameters.
         required: true
+      tags:
+      - Document Models:authorize Copy
+      summary: Document models authorize model copy
+      x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
-    AzureBlobContentSource:
+    AuthorizeCopyRequest:
       type: object
-      description: Azure Blob Storage content.
+      description: Request body to authorize document model copy.
       properties:
-        containerUrl:
+        modelId:
           type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        prefix:
-          type: string
-          description: Blob name prefix.
-      required:
-      - containerUrl
-    AzureBlobFileListContentSource:
-      type: object
-      description: File list in Azure Blob Storage.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
-          type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
-      required:
-      - containerUrl
-      - fileList
-    BuildDocumentClassifierRequest:
-      type: object
-      description: Request body to build a new custom document classifier.
-      properties:
-        classifierId:
-          type: string
-          description: Unique document classifier name.
+          description: Unique document model name.
           pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
         description:
           type: string
-          description: Document classifier description.
+          description: Document model description.
           maxLength: 4096
-        baseClassifierId:
-          type: string
-          description: Base classifierId on top of which to train the classifier.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        docTypes:
+        tags:
           type: object
-          description: List of document types to classify against.
+          description: List of key-value tag attributes associated with the document model.
           additionalProperties:
-            $ref: '#/components/schemas/ClassifierDocumentTypeDetails'
-        allowOverwrite:
-          type: boolean
-          description: Allow overwriting an existing classifier with the same name.
-          default: false
+            type: string
       required:
-      - classifierId
-      - docTypes
-    ContentSourceKind:
-      type: string
-      description: Type of content source.
-      enum:
-      - url
-      - base64
-      - azureBlob
-      - azureBlobFileList
-      x-ms-enum:
-        name: ContentSourceKind
-        modelAsString: true
-        values:
-        - name: url
-          value: url
-          description: Content at a specific URL.
-        - name: base64
-          value: base64
-          description: Content represented via Base64 encoding.
-        - name: azureBlob
-          value: azureBlob
-          description: Files in a path within an Azure Blob Storage container.
-        - name: azureBlobFileList
-          value: azureBlobFileList
-          description: A file list specifying individual files in an Azure Blob Storage container.
+      - modelId
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -167,51 +125,42 @@ components:
           description: Error info.
       required:
       - error
-    DocumentIntelligenceInnerError:
+    ModelCopyAuthorization:
       type: object
-      description: An object containing more specific information about the error.
+      description: 'Authorization to copy a document model to the specified target resource and
+
+        modelId.'
       properties:
-        code:
+        targetResourceId:
           type: string
-          description: One of a server-defined set of error codes.
-        message:
+          description: ID of the target Azure resource where the document model should be copied to.
+        targetResourceRegion:
           type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    ClassifierDocumentTypeDetails:
-      type: object
-      description: Classifier document type info.
-      properties:
-        sourceKind:
-          $ref: '#/components/schemas/ContentSourceKind'
-          description: Type of training data source.
-        azureBlobSource:
-          $ref: '#/components/schemas/AzureBlobContentSource'
-          description: 'Azure Blob Storage location containing the training data for a classifier
+          description: 'Location of the target Azure resource where the document model should be copied
 
-            document type.  Either azureBlobSource or azureBlobFileListSource must be
-
-            specified.'
-        azureBlobFileListSource:
-          $ref: '#/components/schemas/AzureBlobFileListContentSource'
-          description: 'Azure Blob Storage file list specifying the training data for a classifier
-
-            document type.  Either azureBlobSource or azureBlobFileListSource must be
-
-            specified.'
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
+            to.'
+        targetModelId:
+          type: string
+          description: Identifier of the target document model.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        targetModelLocation:
+          type: string
+          format: uri
+          description: URL of the copied document model in the target account.
+        accessToken:
+          type: string
+          description: Token used to authorize the request.
+        expirationDateTime:
+          type: string
+          format: date-time
+          description: Date/time when the access token expires.
+      required:
+      - targetResourceId
+      - targetResourceRegion
+      - targetModelId
+      - targetModelLocation
+      - accessToken
+      - expirationDateTime
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

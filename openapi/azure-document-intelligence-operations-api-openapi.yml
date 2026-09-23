@@ -1,12 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Operations API
+  title: Document Intelligence (formerly Form Recognizer) Operations…
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
@@ -47,6 +45,8 @@ paths:
         nextLinkName: nextLink
       tags:
       - Operations
+      summary: Miscellaneous operations list operations
+      x-summary-source: derived
   /operations/{operationId}:
     get:
       operationId: MiscellaneousOperations_GetDocumentModelBuildOperation
@@ -84,291 +84,10 @@ paths:
           $ref: ./examples/GetOperation_DocumentModelBuild.json
       tags:
       - Operations
+      summary: Miscellaneous operations get document model build operation
+      x-summary-source: derived
 components:
   schemas:
-    DocumentIntelligenceOperationStatus:
-      type: string
-      description: Operation status.
-      enum:
-      - notStarted
-      - running
-      - failed
-      - succeeded
-      - canceled
-      - skipped
-      x-ms-enum:
-        name: DocumentIntelligenceOperationStatus
-        modelAsString: true
-        values:
-        - name: notStarted
-          value: notStarted
-          description: The operation has not started yet.
-        - name: running
-          value: running
-          description: The operation is in progress.
-        - name: failed
-          value: failed
-          description: The operation has failed.
-        - name: succeeded
-          value: succeeded
-          description: The operation has succeeded.
-        - name: canceled
-          value: canceled
-          description: The operation has been canceled.
-        - name: skipped
-          value: skipped
-          description: The operation has been skipped.
-    DocumentBuildMode:
-      type: string
-      description: Custom document model build mode.
-      enum:
-      - template
-      - neural
-      x-ms-enum:
-        name: DocumentBuildMode
-        modelAsString: true
-        values:
-        - name: template
-          value: template
-          description: Target documents with similar visual templates.
-        - name: neural
-          value: neural
-          description: Support documents with diverse visual templates.
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    DocumentAnalysisFeature:
-      type: string
-      description: Document analysis features to enable.
-      enum:
-      - ocrHighResolution
-      - languages
-      - barcodes
-      - formulas
-      - keyValuePairs
-      - styleFont
-      - queryFields
-      x-ms-enum:
-        name: DocumentAnalysisFeature
-        modelAsString: true
-        values:
-        - name: ocrHighResolution
-          value: ocrHighResolution
-          description: Perform OCR at a higher resolution to handle documents with fine print.
-        - name: languages
-          value: languages
-          description: Enable the detection of the text content language.
-        - name: barcodes
-          value: barcodes
-          description: Enable the detection of barcodes in the document.
-        - name: formulas
-          value: formulas
-          description: Enable the detection of mathematical expressions in the document.
-        - name: keyValuePairs
-          value: keyValuePairs
-          description: Enable the detection of general key value pairs (form fields) in the document.
-        - name: styleFont
-          value: styleFont
-          description: Enable the recognition of various font styles.
-        - name: queryFields
-          value: queryFields
-          description: Enable the extraction of additional fields via the queryFields query parameter.
-    DocumentModelBuildOperationDetails:
-      type: object
-      description: Get Operation response object.
-      properties:
-        result:
-          $ref: '#/components/schemas/DocumentModelDetails'
-          description: Operation result upon success.
-      allOf:
-      - $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
-      x-ms-discriminator-value: documentModelBuild
-    AzureBlobContentSource:
-      type: object
-      description: Azure Blob Storage content.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        prefix:
-          type: string
-          description: Blob name prefix.
-      required:
-      - containerUrl
-    DocumentTypeDetails:
-      type: object
-      description: Document type info.
-      properties:
-        description:
-          type: string
-          description: Document model description.
-          maxLength: 4096
-        buildMode:
-          $ref: '#/components/schemas/DocumentBuildMode'
-          description: Custom document model build mode.
-        fieldSchema:
-          type: object
-          description: Description of the document semantic schema using a JSON Schema style syntax.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-        fieldConfidence:
-          type: object
-          description: Estimated confidence for each field.
-          additionalProperties:
-            format: float
-            type: number
-        modelId:
-          type: string
-          description: Document model to use for analyzing documents with specified type.
-          maxLength: 64
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        confidenceThreshold:
-          type: number
-          format: float
-          description: Only perform analysis if docType confidence is above threshold.
-        features:
-          type: array
-          description: List of optional analysis features.
-          items:
-            $ref: '#/components/schemas/DocumentAnalysisFeature'
-        queryFields:
-          type: array
-          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
-          items:
-            type: string
-        maxDocumentsToAnalyze:
-          type: integer
-          format: int32
-          description: Maximum number of documents of specified type to analyze.  Default=all.
-    OperationKind:
-      type: string
-      description: Type of operation.
-      enum:
-      - documentModelBuild
-      - documentModelCompose
-      - documentModelCopyTo
-      - documentClassifierCopyTo
-      - documentClassifierBuild
-      x-ms-enum:
-        name: OperationKind
-        modelAsString: true
-        values:
-        - name: documentModelBuild
-          value: documentModelBuild
-          description: Build a new custom document model.
-        - name: documentModelCompose
-          value: documentModelCompose
-          description: Compose a new custom document model from existing models.
-        - name: documentModelCopyTo
-          value: documentModelCopyTo
-          description: 'Copy an existing document model to potentially a different resource, region, or
-
-            subscription.'
-        - name: documentClassifierCopyTo
-          value: documentClassifierCopyTo
-          description: 'Copy an existing document classifier to potentially a different resource, region, or
-
-            subscription.'
-        - name: documentClassifierBuild
-          value: documentClassifierBuild
-          description: Build a new custom classifier model.
-    DocumentFieldSchema:
-      type: object
-      description: Description of the field semantic schema using a JSON Schema style syntax.
-      properties:
-        type:
-          $ref: '#/components/schemas/DocumentFieldType'
-          description: Semantic data type of the field value.
-        description:
-          type: string
-          description: Field description.
-          maxLength: 4096
-        example:
-          type: string
-          description: Example field content.
-        items:
-          $ref: '#/components/schemas/DocumentFieldSchema'
-          description: Field type schema of each array element.
-        properties:
-          type: object
-          description: Named sub-fields of the object field.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-      required:
-      - type
-    DocumentIntelligenceError:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
-    PagedDocumentIntelligenceOperationDetails:
-      type: object
-      description: Paged collection of DocumentIntelligenceOperationDetails items
-      properties:
-        value:
-          type: array
-          description: The DocumentIntelligenceOperationDetails items on this page
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
-        nextLink:
-          type: string
-          format: uri
-          description: The link to the next page of items
-      required:
-      - value
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    AzureBlobFileListContentSource:
-      type: object
-      description: File list in Azure Blob Storage.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
-          type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
-      required:
-      - containerUrl
-      - fileList
     DocumentModelDetails:
       type: object
       description: Document model info.
@@ -468,74 +187,62 @@ components:
       required:
       - modelId
       - createdDateTime
-    DocumentFieldType:
+    DocumentIntelligenceOperationStatus:
       type: string
-      description: Semantic data type of the field value.
+      description: Operation status.
       enum:
-      - string
-      - date
-      - time
-      - phoneNumber
-      - number
-      - integer
-      - selectionMark
-      - countryRegion
-      - signature
-      - array
-      - object
-      - currency
-      - address
-      - boolean
-      - selectionGroup
+      - notStarted
+      - running
+      - failed
+      - succeeded
+      - canceled
+      - skipped
       x-ms-enum:
-        name: DocumentFieldType
+        name: DocumentIntelligenceOperationStatus
         modelAsString: true
         values:
-        - name: string
-          value: string
-          description: Plain text.
-        - name: date
-          value: date
-          description: Date, normalized to ISO 8601 (YYYY-MM-DD) format.
-        - name: time
-          value: time
-          description: Time, normalized to ISO 8601 (hh:mm:ss) format.
-        - name: phoneNumber
-          value: phoneNumber
-          description: Phone number, normalized to E.164 (+{CountryCode}{SubscriberNumber}) format.
-        - name: number
-          value: number
-          description: Floating point number, normalized to double precision floating point.
-        - name: integer
-          value: integer
-          description: Integer number, normalized to 64-bit signed integer.
-        - name: selectionMark
-          value: selectionMark
-          description: Is field selected?
-        - name: countryRegion
-          value: countryRegion
-          description: Country/region, normalized to ISO 3166-1 alpha-3 format (ex. USA).
-        - name: signature
-          value: signature
-          description: Is signature present?
-        - name: array
-          value: array
-          description: List of subfields of the same type.
-        - name: object
-          value: object
-          description: Named list of subfields of potentially different types.
-        - name: currency
-          value: currency
-          description: Currency amount with optional currency symbol and unit.
-        - name: address
-          value: address
-          description: Parsed address.
-        - name: boolean
-          value: boolean
-          description: Boolean value, normalized to true or false.
-        - name: selectionGroup
-          value: selectionGroup
-          description: Array of selected string values.
+        - name: notStarted
+          value: notStarted
+          description: The operation has not started yet.
+        - name: running
+          value: running
+          description: The operation is in progress.
+        - name: failed
+          value: failed
+          description: The operation has failed.
+        - name: succeeded
+          value: succeeded
+          description: The operation has succeeded.
+        - name: canceled
+          value: canceled
+          description: The operation has been canceled.
+        - name: skipped
+          value: skipped
+          description: The operation has been skipped.
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
     DocumentIntelligenceOperationDetails:
       type: object
       description: Operation info.
@@ -606,6 +313,301 @@ components:
       required:
       - code
       - message
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
+    DocumentBuildMode:
+      type: string
+      description: Custom document model build mode.
+      enum:
+      - template
+      - neural
+      x-ms-enum:
+        name: DocumentBuildMode
+        modelAsString: true
+        values:
+        - name: template
+          value: template
+          description: Target documents with similar visual templates.
+        - name: neural
+          value: neural
+          description: Support documents with diverse visual templates.
+    OperationKind:
+      type: string
+      description: Type of operation.
+      enum:
+      - documentModelBuild
+      - documentModelCompose
+      - documentModelCopyTo
+      - documentClassifierCopyTo
+      - documentClassifierBuild
+      x-ms-enum:
+        name: OperationKind
+        modelAsString: true
+        values:
+        - name: documentModelBuild
+          value: documentModelBuild
+          description: Build a new custom document model.
+        - name: documentModelCompose
+          value: documentModelCompose
+          description: Compose a new custom document model from existing models.
+        - name: documentModelCopyTo
+          value: documentModelCopyTo
+          description: 'Copy an existing document model to potentially a different resource, region, or
+
+            subscription.'
+        - name: documentClassifierCopyTo
+          value: documentClassifierCopyTo
+          description: 'Copy an existing document classifier to potentially a different resource, region, or
+
+            subscription.'
+        - name: documentClassifierBuild
+          value: documentClassifierBuild
+          description: Build a new custom classifier model.
+    DocumentModelBuildOperationDetails:
+      type: object
+      description: Get Operation response object.
+      properties:
+        result:
+          $ref: '#/components/schemas/DocumentModelDetails'
+          description: Operation result upon success.
+      allOf:
+      - $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
+      x-ms-discriminator-value: documentModelBuild
+    PagedDocumentIntelligenceOperationDetails:
+      type: object
+      description: Paged collection of DocumentIntelligenceOperationDetails items
+      properties:
+        value:
+          type: array
+          description: The DocumentIntelligenceOperationDetails items on this page
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
+        nextLink:
+          type: string
+          format: uri
+          description: The link to the next page of items
+      required:
+      - value
+    DocumentTypeDetails:
+      type: object
+      description: Document type info.
+      properties:
+        description:
+          type: string
+          description: Document model description.
+          maxLength: 4096
+        buildMode:
+          $ref: '#/components/schemas/DocumentBuildMode'
+          description: Custom document model build mode.
+        fieldSchema:
+          type: object
+          description: Description of the document semantic schema using a JSON Schema style syntax.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
+        fieldConfidence:
+          type: object
+          description: Estimated confidence for each field.
+          additionalProperties:
+            format: float
+            type: number
+        modelId:
+          type: string
+          description: Document model to use for analyzing documents with specified type.
+          maxLength: 64
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        confidenceThreshold:
+          type: number
+          format: float
+          description: Only perform analysis if docType confidence is above threshold.
+        features:
+          type: array
+          description: List of optional analysis features.
+          items:
+            $ref: '#/components/schemas/DocumentAnalysisFeature'
+        queryFields:
+          type: array
+          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
+          items:
+            type: string
+        maxDocumentsToAnalyze:
+          type: integer
+          format: int32
+          description: Maximum number of documents of specified type to analyze.  Default=all.
+    DocumentFieldType:
+      type: string
+      description: Semantic data type of the field value.
+      enum:
+      - string
+      - date
+      - time
+      - phoneNumber
+      - number
+      - integer
+      - selectionMark
+      - countryRegion
+      - signature
+      - array
+      - object
+      - currency
+      - address
+      - boolean
+      - selectionGroup
+      x-ms-enum:
+        name: DocumentFieldType
+        modelAsString: true
+        values:
+        - name: string
+          value: string
+          description: Plain text.
+        - name: date
+          value: date
+          description: Date, normalized to ISO 8601 (YYYY-MM-DD) format.
+        - name: time
+          value: time
+          description: Time, normalized to ISO 8601 (hh:mm:ss) format.
+        - name: phoneNumber
+          value: phoneNumber
+          description: Phone number, normalized to E.164 (+{CountryCode}{SubscriberNumber}) format.
+        - name: number
+          value: number
+          description: Floating point number, normalized to double precision floating point.
+        - name: integer
+          value: integer
+          description: Integer number, normalized to 64-bit signed integer.
+        - name: selectionMark
+          value: selectionMark
+          description: Is field selected?
+        - name: countryRegion
+          value: countryRegion
+          description: Country/region, normalized to ISO 3166-1 alpha-3 format (ex. USA).
+        - name: signature
+          value: signature
+          description: Is signature present?
+        - name: array
+          value: array
+          description: List of subfields of the same type.
+        - name: object
+          value: object
+          description: Named list of subfields of potentially different types.
+        - name: currency
+          value: currency
+          description: Currency amount with optional currency symbol and unit.
+        - name: address
+          value: address
+          description: Parsed address.
+        - name: boolean
+          value: boolean
+          description: Boolean value, normalized to true or false.
+        - name: selectionGroup
+          value: selectionGroup
+          description: Array of selected string values.
+    DocumentFieldSchema:
+      type: object
+      description: Description of the field semantic schema using a JSON Schema style syntax.
+      properties:
+        type:
+          $ref: '#/components/schemas/DocumentFieldType'
+          description: Semantic data type of the field value.
+        description:
+          type: string
+          description: Field description.
+          maxLength: 4096
+        example:
+          type: string
+          description: Example field content.
+        items:
+          $ref: '#/components/schemas/DocumentFieldSchema'
+          description: Field type schema of each array element.
+        properties:
+          type: object
+          description: Named sub-fields of the object field.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
+      required:
+      - type
+    DocumentAnalysisFeature:
+      type: string
+      description: Document analysis features to enable.
+      enum:
+      - ocrHighResolution
+      - languages
+      - barcodes
+      - formulas
+      - keyValuePairs
+      - styleFont
+      - queryFields
+      x-ms-enum:
+        name: DocumentAnalysisFeature
+        modelAsString: true
+        values:
+        - name: ocrHighResolution
+          value: ocrHighResolution
+          description: Perform OCR at a higher resolution to handle documents with fine print.
+        - name: languages
+          value: languages
+          description: Enable the detection of the text content language.
+        - name: barcodes
+          value: barcodes
+          description: Enable the detection of barcodes in the document.
+        - name: formulas
+          value: formulas
+          description: Enable the detection of mathematical expressions in the document.
+        - name: keyValuePairs
+          value: keyValuePairs
+          description: Enable the detection of general key value pairs (form fields) in the document.
+        - name: styleFont
+          value: styleFont
+          description: Enable the recognition of various font styles.
+        - name: queryFields
+          value: queryFields
+          description: Enable the extraction of additional fields via the queryFields query parameter.
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
   parameters:
     Azure.Core.ClientRequestIdHeader:
       name: x-ms-client-request-id

@@ -1,12 +1,10 @@
 openapi: 3.2.0
 info:
-  title: Document Intelligence (formerly Form Recognizer) DocumentClassifiers Info API
+  title: Document Intelligence (formerly Form Recognizer) Info API
   version: '2024-11-30'
   description: Extracts content, layout, and structured data from documents.
   x-typespec-generated:
   - emitter: '@azure-tools/typespec-autorest'
-servers:
-- url: https://<your-resource>.cognitiveservices.azure.com/
 security:
 - ApiKeyAuth: []
 - OAuth2Auth:
@@ -38,8 +36,49 @@ paths:
           $ref: ./examples/GetResourceDetails.json
       tags:
       - Info
+      summary: Miscellaneous operations get resource details
+      x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
+    CustomDocumentModelsDetails:
+      type: object
+      description: Details regarding custom document models.
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Number of custom document models in the current resource.
+        limit:
+          type: integer
+          format: int32
+          description: Maximum number of custom document models supported in the current resource.
+      required:
+      - count
+      - limit
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -64,43 +103,6 @@ components:
       required:
       - code
       - message
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    CustomDocumentModelsDetails:
-      type: object
-      description: Details regarding custom document models.
-      properties:
-        count:
-          type: integer
-          format: int32
-          description: Number of custom document models in the current resource.
-        limit:
-          type: integer
-          format: int32
-          description: Maximum number of custom document models supported in the current resource.
-      required:
-      - count
-      - limit
     DocumentIntelligenceResourceDetails:
       type: object
       description: General information regarding the current resource.
@@ -110,17 +112,15 @@ components:
           description: Details regarding custom document models.
       required:
       - customDocumentModels
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
