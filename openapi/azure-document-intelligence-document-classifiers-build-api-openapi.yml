@@ -54,55 +54,7 @@ paths:
       summary: Document classifiers build classifier
       x-summary-source: derived
 components:
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   schemas:
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    ContentSourceKind:
-      type: string
-      description: Type of content source.
-      enum:
-      - url
-      - base64
-      - azureBlob
-      - azureBlobFileList
-      x-ms-enum:
-        name: ContentSourceKind
-        modelAsString: true
-        values:
-        - name: url
-          value: url
-          description: Content at a specific URL.
-        - name: base64
-          value: base64
-          description: Content represented via Base64 encoding.
-        - name: azureBlob
-          value: azureBlob
-          description: Files in a path within an Azure Blob Storage container.
-        - name: azureBlobFileList
-          value: azureBlobFileList
-          description: A file list specifying individual files in an Azure Blob Storage container.
     ClassifierDocumentTypeDetails:
       type: object
       description: Classifier document type info.
@@ -124,6 +76,55 @@ components:
             document type.  Either azureBlobSource or azureBlobFileListSource must be
 
             specified.'
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
     BuildDocumentClassifierRequest:
       type: object
       description: Request body to build a new custom document classifier.
@@ -176,42 +177,41 @@ components:
       required:
       - code
       - message
-    AzureBlobFileListContentSource:
-      type: object
-      description: File list in Azure Blob Storage.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
-          type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
-      required:
-      - containerUrl
-      - fileList
-    AzureBlobContentSource:
-      type: object
-      description: Azure Blob Storage content.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        prefix:
-          type: string
-          description: Blob name prefix.
-      required:
-      - containerUrl
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
+    ContentSourceKind:
+      type: string
+      description: Type of content source.
+      enum:
+      - url
+      - base64
+      - azureBlob
+      - azureBlobFileList
+      x-ms-enum:
+        name: ContentSourceKind
+        modelAsString: true
+        values:
+        - name: url
+          value: url
+          description: Content at a specific URL.
+        - name: base64
+          value: base64
+          description: Content represented via Base64 encoding.
+        - name: azureBlob
+          value: azureBlob
+          description: Files in a path within an Azure Blob Storage container.
+        - name: azureBlobFileList
+          value: azureBlobFileList
+          description: A file list specifying individual files in an Azure Blob Storage container.
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
