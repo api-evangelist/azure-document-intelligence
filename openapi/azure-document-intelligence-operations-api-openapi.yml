@@ -88,19 +88,73 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DocumentIntelligenceInnerError:
+    DocumentIntelligenceOperationDetails:
       type: object
-      description: An object containing more specific information about the error.
+      description: Operation info.
       properties:
-        code:
+        operationId:
           type: string
-          description: One of a server-defined set of error codes.
-        message:
+          description: Operation ID
+          x-ms-mutability:
+          - read
+          - create
+        status:
+          $ref: '#/components/schemas/DocumentIntelligenceOperationStatus'
+          description: Operation status.  notStarted, running, completed, or failed
+        percentCompleted:
+          type: integer
+          format: int32
+          description: Operation progress (0-100).
+          minimum: 0
+          maximum: 100
+        createdDateTime:
           type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
+          format: date-time
+          description: Date and time (UTC) when the operation was created.
+        lastUpdatedDateTime:
+          type: string
+          format: date-time
+          description: Date and time (UTC) when the status was last updated.
+        kind:
+          $ref: '#/components/schemas/OperationKind'
+          description: Type of operation.
+        resourceLocation:
+          type: string
+          format: uri
+          description: URL of the resource targeted by this operation.
+        apiVersion:
+          type: string
+          description: API version used to create this operation.
+        tags:
+          type: object
+          description: List of key-value tag attributes associated with the document model.
+          additionalProperties:
+            type: string
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Encountered error.
+      discriminator:
+        propertyName: kind
+      required:
+      - operationId
+      - status
+      - createdDateTime
+      - lastUpdatedDateTime
+      - kind
+      - resourceLocation
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
     DocumentFieldSchema:
       type: object
       description: Description of the field semantic schema using a JSON Schema style syntax.
@@ -125,16 +179,6 @@ components:
             $ref: '#/components/schemas/DocumentFieldSchema'
       required:
       - type
-    DocumentModelBuildOperationDetails:
-      type: object
-      description: Get Operation response object.
-      properties:
-        result:
-          $ref: '#/components/schemas/DocumentModelDetails'
-          description: Operation result upon success.
-      allOf:
-      - $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
-      x-ms-discriminator-value: documentModelBuild
     DocumentModelDetails:
       type: object
       description: Document model info.
@@ -234,6 +278,171 @@ components:
       required:
       - modelId
       - createdDateTime
+    DocumentIntelligenceOperationStatus:
+      type: string
+      description: Operation status.
+      enum:
+      - notStarted
+      - running
+      - failed
+      - succeeded
+      - canceled
+      - skipped
+      x-ms-enum:
+        name: DocumentIntelligenceOperationStatus
+        modelAsString: true
+        values:
+        - name: notStarted
+          value: notStarted
+          description: The operation has not started yet.
+        - name: running
+          value: running
+          description: The operation is in progress.
+        - name: failed
+          value: failed
+          description: The operation has failed.
+        - name: succeeded
+          value: succeeded
+          description: The operation has succeeded.
+        - name: canceled
+          value: canceled
+          description: The operation has been canceled.
+        - name: skipped
+          value: skipped
+          description: The operation has been skipped.
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
+    DocumentIntelligenceWarning:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of warning codes.
+        message:
+          type: string
+          description: A human-readable representation of the warning.
+        target:
+          type: string
+          description: The target of the error.
+      required:
+      - code
+      - message
+    DocumentBuildMode:
+      type: string
+      description: Custom document model build mode.
+      enum:
+      - template
+      - neural
+      x-ms-enum:
+        name: DocumentBuildMode
+        modelAsString: true
+        values:
+        - name: template
+          value: template
+          description: Target documents with similar visual templates.
+        - name: neural
+          value: neural
+          description: Support documents with diverse visual templates.
+    OperationKind:
+      type: string
+      description: Type of operation.
+      enum:
+      - documentModelBuild
+      - documentModelCompose
+      - documentModelCopyTo
+      - documentClassifierCopyTo
+      - documentClassifierBuild
+      x-ms-enum:
+        name: OperationKind
+        modelAsString: true
+        values:
+        - name: documentModelBuild
+          value: documentModelBuild
+          description: Build a new custom document model.
+        - name: documentModelCompose
+          value: documentModelCompose
+          description: Compose a new custom document model from existing models.
+        - name: documentModelCopyTo
+          value: documentModelCopyTo
+          description: 'Copy an existing document model to potentially a different resource, region, or
+
+            subscription.'
+        - name: documentClassifierCopyTo
+          value: documentClassifierCopyTo
+          description: 'Copy an existing document classifier to potentially a different resource, region, or
+
+            subscription.'
+        - name: documentClassifierBuild
+          value: documentClassifierBuild
+          description: Build a new custom classifier model.
+    DocumentTypeDetails:
+      type: object
+      description: Document type info.
+      properties:
+        description:
+          type: string
+          description: Document model description.
+          maxLength: 4096
+        buildMode:
+          $ref: '#/components/schemas/DocumentBuildMode'
+          description: Custom document model build mode.
+        fieldSchema:
+          type: object
+          description: Description of the document semantic schema using a JSON Schema style syntax.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
+        fieldConfidence:
+          type: object
+          description: Estimated confidence for each field.
+          additionalProperties:
+            format: float
+            type: number
+        modelId:
+          type: string
+          description: Document model to use for analyzing documents with specified type.
+          maxLength: 64
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        confidenceThreshold:
+          type: number
+          format: float
+          description: Only perform analysis if docType confidence is above threshold.
+        features:
+          type: array
+          description: List of optional analysis features.
+          items:
+            $ref: '#/components/schemas/DocumentAnalysisFeature'
+        queryFields:
+          type: array
+          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
+          items:
+            type: string
+        maxDocumentsToAnalyze:
+          type: integer
+          format: int32
+          description: Maximum number of documents of specified type to analyze.  Default=all.
     DocumentIntelligenceErrorResponse:
       type: object
       description: Error response object.
@@ -279,70 +488,6 @@ components:
         - name: queryFields
           value: queryFields
           description: Enable the extraction of additional fields via the queryFields query parameter.
-    OperationKind:
-      type: string
-      description: Type of operation.
-      enum:
-      - documentModelBuild
-      - documentModelCompose
-      - documentModelCopyTo
-      - documentClassifierCopyTo
-      - documentClassifierBuild
-      x-ms-enum:
-        name: OperationKind
-        modelAsString: true
-        values:
-        - name: documentModelBuild
-          value: documentModelBuild
-          description: Build a new custom document model.
-        - name: documentModelCompose
-          value: documentModelCompose
-          description: Compose a new custom document model from existing models.
-        - name: documentModelCopyTo
-          value: documentModelCopyTo
-          description: 'Copy an existing document model to potentially a different resource, region, or
-
-            subscription.'
-        - name: documentClassifierCopyTo
-          value: documentClassifierCopyTo
-          description: 'Copy an existing document classifier to potentially a different resource, region, or
-
-            subscription.'
-        - name: documentClassifierBuild
-          value: documentClassifierBuild
-          description: Build a new custom classifier model.
-    DocumentIntelligenceWarning:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of warning codes.
-        message:
-          type: string
-          description: A human-readable representation of the warning.
-        target:
-          type: string
-          description: The target of the error.
-      required:
-      - code
-      - message
-    DocumentBuildMode:
-      type: string
-      description: Custom document model build mode.
-      enum:
-      - template
-      - neural
-      x-ms-enum:
-        name: DocumentBuildMode
-        modelAsString: true
-        values:
-        - name: template
-          value: template
-          description: Target documents with similar visual templates.
-        - name: neural
-          value: neural
-          description: Support documents with diverse visual templates.
     PagedDocumentIntelligenceOperationDetails:
       type: object
       description: Paged collection of DocumentIntelligenceOperationDetails items
@@ -358,60 +503,6 @@ components:
           description: The link to the next page of items
       required:
       - value
-    DocumentIntelligenceOperationDetails:
-      type: object
-      description: Operation info.
-      properties:
-        operationId:
-          type: string
-          description: Operation ID
-          x-ms-mutability:
-          - read
-          - create
-        status:
-          $ref: '#/components/schemas/DocumentIntelligenceOperationStatus'
-          description: Operation status.  notStarted, running, completed, or failed
-        percentCompleted:
-          type: integer
-          format: int32
-          description: Operation progress (0-100).
-          minimum: 0
-          maximum: 100
-        createdDateTime:
-          type: string
-          format: date-time
-          description: Date and time (UTC) when the operation was created.
-        lastUpdatedDateTime:
-          type: string
-          format: date-time
-          description: Date and time (UTC) when the status was last updated.
-        kind:
-          $ref: '#/components/schemas/OperationKind'
-          description: Type of operation.
-        resourceLocation:
-          type: string
-          format: uri
-          description: URL of the resource targeted by this operation.
-        apiVersion:
-          type: string
-          description: API version used to create this operation.
-        tags:
-          type: object
-          description: List of key-value tag attributes associated with the document model.
-          additionalProperties:
-            type: string
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Encountered error.
-      discriminator:
-        propertyName: kind
-      required:
-      - operationId
-      - status
-      - createdDateTime
-      - lastUpdatedDateTime
-      - kind
-      - resourceLocation
     AzureBlobFileListContentSource:
       type: object
       description: File list in Azure Blob Storage.
@@ -426,6 +517,19 @@ components:
       required:
       - containerUrl
       - fileList
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     DocumentFieldType:
       type: string
       description: Semantic data type of the field value.
@@ -494,131 +598,17 @@ components:
         - name: selectionGroup
           value: selectionGroup
           description: Array of selected string values.
-    DocumentIntelligenceOperationStatus:
-      type: string
-      description: Operation status.
-      enum:
-      - notStarted
-      - running
-      - failed
-      - succeeded
-      - canceled
-      - skipped
-      x-ms-enum:
-        name: DocumentIntelligenceOperationStatus
-        modelAsString: true
-        values:
-        - name: notStarted
-          value: notStarted
-          description: The operation has not started yet.
-        - name: running
-          value: running
-          description: The operation is in progress.
-        - name: failed
-          value: failed
-          description: The operation has failed.
-        - name: succeeded
-          value: succeeded
-          description: The operation has succeeded.
-        - name: canceled
-          value: canceled
-          description: The operation has been canceled.
-        - name: skipped
-          value: skipped
-          description: The operation has been skipped.
-    AzureBlobContentSource:
+    DocumentModelBuildOperationDetails:
       type: object
-      description: Azure Blob Storage content.
+      description: Get Operation response object.
       properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        prefix:
-          type: string
-          description: Blob name prefix.
-      required:
-      - containerUrl
-    DocumentIntelligenceError:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
-    DocumentTypeDetails:
-      type: object
-      description: Document type info.
-      properties:
-        description:
-          type: string
-          description: Document model description.
-          maxLength: 4096
-        buildMode:
-          $ref: '#/components/schemas/DocumentBuildMode'
-          description: Custom document model build mode.
-        fieldSchema:
-          type: object
-          description: Description of the document semantic schema using a JSON Schema style syntax.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-        fieldConfidence:
-          type: object
-          description: Estimated confidence for each field.
-          additionalProperties:
-            format: float
-            type: number
-        modelId:
-          type: string
-          description: Document model to use for analyzing documents with specified type.
-          maxLength: 64
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        confidenceThreshold:
-          type: number
-          format: float
-          description: Only perform analysis if docType confidence is above threshold.
-        features:
-          type: array
-          description: List of optional analysis features.
-          items:
-            $ref: '#/components/schemas/DocumentAnalysisFeature'
-        queryFields:
-          type: array
-          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
-          items:
-            type: string
-        maxDocumentsToAnalyze:
-          type: integer
-          format: int32
-          description: Maximum number of documents of specified type to analyze.  Default=all.
+        result:
+          $ref: '#/components/schemas/DocumentModelDetails'
+          description: Operation result upon success.
+      allOf:
+      - $ref: '#/components/schemas/DocumentIntelligenceOperationDetails'
+      x-ms-discriminator-value: documentModelBuild
   parameters:
-    Azure.Core.ClientRequestIdHeader:
-      name: x-ms-client-request-id
-      in: header
-      description: An opaque, globally-unique, client-generated string identifier for the request.
-      required: false
-      x-ms-parameter-location: method
-      x-ms-client-name: clientRequestId
-      schema:
-        type: string
-        format: uuid
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version
       in: query
@@ -629,6 +619,16 @@ components:
       schema:
         type: string
         minLength: 1
+    Azure.Core.ClientRequestIdHeader:
+      name: x-ms-client-request-id
+      in: header
+      description: An opaque, globally-unique, client-generated string identifier for the request.
+      required: false
+      x-ms-parameter-location: method
+      x-ms-client-name: clientRequestId
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -49,19 +49,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
     AuthorizeClassifierCopyRequest:
       type: object
       description: Request body to authorize document classifier copy.
@@ -81,15 +68,6 @@ components:
             type: string
       required:
       - classifierId
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -150,6 +128,28 @@ components:
       - targetClassifierLocation
       - accessToken
       - expirationDateTime
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version

@@ -49,64 +49,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ModelCopyAuthorization:
-      type: object
-      description: 'Authorization to copy a document model to the specified target resource and
-
-        modelId.'
-      properties:
-        targetResourceId:
-          type: string
-          description: ID of the target Azure resource where the document model should be copied to.
-        targetResourceRegion:
-          type: string
-          description: 'Location of the target Azure resource where the document model should be copied
-
-            to.'
-        targetModelId:
-          type: string
-          description: Identifier of the target document model.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        targetModelLocation:
-          type: string
-          format: uri
-          description: URL of the copied document model in the target account.
-        accessToken:
-          type: string
-          description: Token used to authorize the request.
-        expirationDateTime:
-          type: string
-          format: date-time
-          description: Date/time when the access token expires.
-      required:
-      - targetResourceId
-      - targetResourceRegion
-      - targetModelId
-      - targetModelLocation
-      - accessToken
-      - expirationDateTime
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
     AuthorizeCopyRequest:
       type: object
       description: Request body to authorize document model copy.
@@ -150,6 +92,64 @@ components:
       required:
       - code
       - message
+    ModelCopyAuthorization:
+      type: object
+      description: 'Authorization to copy a document model to the specified target resource and
+
+        modelId.'
+      properties:
+        targetResourceId:
+          type: string
+          description: ID of the target Azure resource where the document model should be copied to.
+        targetResourceRegion:
+          type: string
+          description: 'Location of the target Azure resource where the document model should be copied
+
+            to.'
+        targetModelId:
+          type: string
+          description: Identifier of the target document model.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        targetModelLocation:
+          type: string
+          format: uri
+          description: URL of the copied document model in the target account.
+        accessToken:
+          type: string
+          description: Token used to authorize the request.
+        expirationDateTime:
+          type: string
+          format: date-time
+          description: Date/time when the access token expires.
+      required:
+      - targetResourceId
+      - targetResourceRegion
+      - targetModelId
+      - targetModelLocation
+      - accessToken
+      - expirationDateTime
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version

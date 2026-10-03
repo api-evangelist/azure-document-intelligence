@@ -55,6 +55,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
     ComposeDocumentModelRequest:
       type: object
       description: Request body to create a composed document model from component document models.
@@ -105,6 +129,112 @@ components:
       - modelId
       - classifierId
       - docTypes
+    DocumentAnalysisFeature:
+      type: string
+      description: Document analysis features to enable.
+      enum:
+      - ocrHighResolution
+      - languages
+      - barcodes
+      - formulas
+      - keyValuePairs
+      - styleFont
+      - queryFields
+      x-ms-enum:
+        name: DocumentAnalysisFeature
+        modelAsString: true
+        values:
+        - name: ocrHighResolution
+          value: ocrHighResolution
+          description: Perform OCR at a higher resolution to handle documents with fine print.
+        - name: languages
+          value: languages
+          description: Enable the detection of the text content language.
+        - name: barcodes
+          value: barcodes
+          description: Enable the detection of barcodes in the document.
+        - name: formulas
+          value: formulas
+          description: Enable the detection of mathematical expressions in the document.
+        - name: keyValuePairs
+          value: keyValuePairs
+          description: Enable the detection of general key value pairs (form fields) in the document.
+        - name: styleFont
+          value: styleFont
+          description: Enable the recognition of various font styles.
+        - name: queryFields
+          value: queryFields
+          description: Enable the extraction of additional fields via the queryFields query parameter.
+    DocumentBuildMode:
+      type: string
+      description: Custom document model build mode.
+      enum:
+      - template
+      - neural
+      x-ms-enum:
+        name: DocumentBuildMode
+        modelAsString: true
+        values:
+        - name: template
+          value: template
+          description: Target documents with similar visual templates.
+        - name: neural
+          value: neural
+          description: Support documents with diverse visual templates.
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentTypeDetails:
+      type: object
+      description: Document type info.
+      properties:
+        description:
+          type: string
+          description: Document model description.
+          maxLength: 4096
+        buildMode:
+          $ref: '#/components/schemas/DocumentBuildMode'
+          description: Custom document model build mode.
+        fieldSchema:
+          type: object
+          description: Description of the document semantic schema using a JSON Schema style syntax.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
+        fieldConfidence:
+          type: object
+          description: Estimated confidence for each field.
+          additionalProperties:
+            format: float
+            type: number
+        modelId:
+          type: string
+          description: Document model to use for analyzing documents with specified type.
+          maxLength: 64
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        confidenceThreshold:
+          type: number
+          format: float
+          description: Only perform analysis if docType confidence is above threshold.
+        features:
+          type: array
+          description: List of optional analysis features.
+          items:
+            $ref: '#/components/schemas/DocumentAnalysisFeature'
+        queryFields:
+          type: array
+          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
+          items:
+            type: string
+        maxDocumentsToAnalyze:
+          type: integer
+          format: int32
+          description: Maximum number of documents of specified type to analyze.  Default=all.
     DocumentIntelligenceInnerError:
       type: object
       description: An object containing more specific information about the error.
@@ -118,15 +248,30 @@ components:
         innererror:
           $ref: '#/components/schemas/DocumentIntelligenceInnerError'
           description: Inner error.
-    DocumentIntelligenceErrorResponse:
+    DocumentFieldSchema:
       type: object
-      description: Error response object.
+      description: Description of the field semantic schema using a JSON Schema style syntax.
       properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
+        type:
+          $ref: '#/components/schemas/DocumentFieldType'
+          description: Semantic data type of the field value.
+        description:
+          type: string
+          description: Field description.
+          maxLength: 4096
+        example:
+          type: string
+          description: Example field content.
+        items:
+          $ref: '#/components/schemas/DocumentFieldSchema'
+          description: Field type schema of each array element.
+        properties:
+          type: object
+          description: Named sub-fields of the object field.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
       required:
-      - error
+      - type
     DocumentFieldType:
       type: string
       description: Semantic data type of the field value.
@@ -195,151 +340,6 @@ components:
         - name: selectionGroup
           value: selectionGroup
           description: Array of selected string values.
-    DocumentAnalysisFeature:
-      type: string
-      description: Document analysis features to enable.
-      enum:
-      - ocrHighResolution
-      - languages
-      - barcodes
-      - formulas
-      - keyValuePairs
-      - styleFont
-      - queryFields
-      x-ms-enum:
-        name: DocumentAnalysisFeature
-        modelAsString: true
-        values:
-        - name: ocrHighResolution
-          value: ocrHighResolution
-          description: Perform OCR at a higher resolution to handle documents with fine print.
-        - name: languages
-          value: languages
-          description: Enable the detection of the text content language.
-        - name: barcodes
-          value: barcodes
-          description: Enable the detection of barcodes in the document.
-        - name: formulas
-          value: formulas
-          description: Enable the detection of mathematical expressions in the document.
-        - name: keyValuePairs
-          value: keyValuePairs
-          description: Enable the detection of general key value pairs (form fields) in the document.
-        - name: styleFont
-          value: styleFont
-          description: Enable the recognition of various font styles.
-        - name: queryFields
-          value: queryFields
-          description: Enable the extraction of additional fields via the queryFields query parameter.
-    DocumentFieldSchema:
-      type: object
-      description: Description of the field semantic schema using a JSON Schema style syntax.
-      properties:
-        type:
-          $ref: '#/components/schemas/DocumentFieldType'
-          description: Semantic data type of the field value.
-        description:
-          type: string
-          description: Field description.
-          maxLength: 4096
-        example:
-          type: string
-          description: Example field content.
-        items:
-          $ref: '#/components/schemas/DocumentFieldSchema'
-          description: Field type schema of each array element.
-        properties:
-          type: object
-          description: Named sub-fields of the object field.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-      required:
-      - type
-    DocumentIntelligenceError:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
-    DocumentTypeDetails:
-      type: object
-      description: Document type info.
-      properties:
-        description:
-          type: string
-          description: Document model description.
-          maxLength: 4096
-        buildMode:
-          $ref: '#/components/schemas/DocumentBuildMode'
-          description: Custom document model build mode.
-        fieldSchema:
-          type: object
-          description: Description of the document semantic schema using a JSON Schema style syntax.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-        fieldConfidence:
-          type: object
-          description: Estimated confidence for each field.
-          additionalProperties:
-            format: float
-            type: number
-        modelId:
-          type: string
-          description: Document model to use for analyzing documents with specified type.
-          maxLength: 64
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        confidenceThreshold:
-          type: number
-          format: float
-          description: Only perform analysis if docType confidence is above threshold.
-        features:
-          type: array
-          description: List of optional analysis features.
-          items:
-            $ref: '#/components/schemas/DocumentAnalysisFeature'
-        queryFields:
-          type: array
-          description: List of additional fields to extract.  Ex. "NumberOfGuests,StoreNumber"
-          items:
-            type: string
-        maxDocumentsToAnalyze:
-          type: integer
-          format: int32
-          description: Maximum number of documents of specified type to analyze.  Default=all.
-    DocumentBuildMode:
-      type: string
-      description: Custom document model build mode.
-      enum:
-      - template
-      - neural
-      x-ms-enum:
-        name: DocumentBuildMode
-        modelAsString: true
-        values:
-        - name: template
-          value: template
-          description: Target documents with similar visual templates.
-        - name: neural
-          value: neural
-          description: Support documents with diverse visual templates.
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version
