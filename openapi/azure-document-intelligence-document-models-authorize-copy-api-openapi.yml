@@ -48,7 +48,40 @@ paths:
       summary: Document models authorize model copy
       x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     AuthorizeCopyRequest:
       type: object
       description: Request body to authorize document model copy.
@@ -68,30 +101,6 @@ components:
             type: string
       required:
       - modelId
-    DocumentIntelligenceError:
-      type: object
-      description: The error object.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
     ModelCopyAuthorization:
       type: object
       description: 'Authorization to copy a document model to the specified target resource and
@@ -128,18 +137,9 @@ components:
       - targetModelLocation
       - accessToken
       - expirationDateTime
-    DocumentIntelligenceErrorResponse:
+    DocumentIntelligenceError:
       type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
+      description: The error object.
       properties:
         code:
           type: string
@@ -147,20 +147,20 @@ components:
         message:
           type: string
           description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
         innererror:
           $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

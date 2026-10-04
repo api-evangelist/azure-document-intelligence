@@ -39,7 +39,49 @@ paths:
       summary: Miscellaneous operations get resource details
       x-summary-source: derived
 components:
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   schemas:
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentIntelligenceResourceDetails:
+      type: object
+      description: General information regarding the current resource.
+      properties:
+        customDocumentModels:
+          $ref: '#/components/schemas/CustomDocumentModelsDetails'
+          description: Details regarding custom document models.
+      required:
+      - customDocumentModels
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     CustomDocumentModelsDetails:
       type: object
       description: Details regarding custom document models.
@@ -79,48 +121,6 @@ components:
       required:
       - code
       - message
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    DocumentIntelligenceResourceDetails:
-      type: object
-      description: General information regarding the current resource.
-      properties:
-        customDocumentModels:
-          $ref: '#/components/schemas/CustomDocumentModelsDetails'
-          description: Details regarding custom document models.
-      required:
-      - customDocumentModels
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

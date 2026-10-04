@@ -55,6 +55,33 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AzureBlobContentSource:
+      type: object
+      description: Azure Blob Storage content.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        prefix:
+          type: string
+          description: Blob name prefix.
+      required:
+      - containerUrl
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
     ContentSourceKind:
       type: string
       description: Type of content source.
@@ -79,30 +106,27 @@ components:
         - name: azureBlobFileList
           value: azureBlobFileList
           description: A file list specifying individual files in an Azure Blob Storage container.
-    DocumentIntelligenceError:
+    ClassifierDocumentTypeDetails:
       type: object
-      description: The error object.
+      description: Classifier document type info.
       properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
-      required:
-      - code
-      - message
+        sourceKind:
+          $ref: '#/components/schemas/ContentSourceKind'
+          description: Type of training data source.
+        azureBlobSource:
+          $ref: '#/components/schemas/AzureBlobContentSource'
+          description: 'Azure Blob Storage location containing the training data for a classifier
+
+            document type.  Either azureBlobSource or azureBlobFileListSource must be
+
+            specified.'
+        azureBlobFileListSource:
+          $ref: '#/components/schemas/AzureBlobFileListContentSource'
+          description: 'Azure Blob Storage file list specifying the training data for a classifier
+
+            document type.  Either azureBlobSource or azureBlobFileListSource must be
+
+            specified.'
     DocumentIntelligenceErrorResponse:
       type: object
       description: Error response object.
@@ -125,54 +149,6 @@ components:
         innererror:
           $ref: '#/components/schemas/DocumentIntelligenceInnerError'
           description: Inner error.
-    AzureBlobContentSource:
-      type: object
-      description: Azure Blob Storage content.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        prefix:
-          type: string
-          description: Blob name prefix.
-      required:
-      - containerUrl
-    ClassifierDocumentTypeDetails:
-      type: object
-      description: Classifier document type info.
-      properties:
-        sourceKind:
-          $ref: '#/components/schemas/ContentSourceKind'
-          description: Type of training data source.
-        azureBlobSource:
-          $ref: '#/components/schemas/AzureBlobContentSource'
-          description: 'Azure Blob Storage location containing the training data for a classifier
-
-            document type.  Either azureBlobSource or azureBlobFileListSource must be
-
-            specified.'
-        azureBlobFileListSource:
-          $ref: '#/components/schemas/AzureBlobFileListContentSource'
-          description: 'Azure Blob Storage file list specifying the training data for a classifier
-
-            document type.  Either azureBlobSource or azureBlobFileListSource must be
-
-            specified.'
-    AzureBlobFileListContentSource:
-      type: object
-      description: File list in Azure Blob Storage.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
-          type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
-      required:
-      - containerUrl
-      - fileList
     BuildDocumentClassifierRequest:
       type: object
       description: Request body to build a new custom document classifier.
@@ -201,6 +177,30 @@ components:
       required:
       - classifierId
       - docTypes
+    DocumentIntelligenceError:
+      type: object
+      description: The error object.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
+      required:
+      - code
+      - message
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version

@@ -55,6 +55,172 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    DocumentFieldType:
+      type: string
+      description: Semantic data type of the field value.
+      enum:
+      - string
+      - date
+      - time
+      - phoneNumber
+      - number
+      - integer
+      - selectionMark
+      - countryRegion
+      - signature
+      - array
+      - object
+      - currency
+      - address
+      - boolean
+      - selectionGroup
+      x-ms-enum:
+        name: DocumentFieldType
+        modelAsString: true
+        values:
+        - name: string
+          value: string
+          description: Plain text.
+        - name: date
+          value: date
+          description: Date, normalized to ISO 8601 (YYYY-MM-DD) format.
+        - name: time
+          value: time
+          description: Time, normalized to ISO 8601 (hh:mm:ss) format.
+        - name: phoneNumber
+          value: phoneNumber
+          description: Phone number, normalized to E.164 (+{CountryCode}{SubscriberNumber}) format.
+        - name: number
+          value: number
+          description: Floating point number, normalized to double precision floating point.
+        - name: integer
+          value: integer
+          description: Integer number, normalized to 64-bit signed integer.
+        - name: selectionMark
+          value: selectionMark
+          description: Is field selected?
+        - name: countryRegion
+          value: countryRegion
+          description: Country/region, normalized to ISO 3166-1 alpha-3 format (ex. USA).
+        - name: signature
+          value: signature
+          description: Is signature present?
+        - name: array
+          value: array
+          description: List of subfields of the same type.
+        - name: object
+          value: object
+          description: Named list of subfields of potentially different types.
+        - name: currency
+          value: currency
+          description: Currency amount with optional currency symbol and unit.
+        - name: address
+          value: address
+          description: Parsed address.
+        - name: boolean
+          value: boolean
+          description: Boolean value, normalized to true or false.
+        - name: selectionGroup
+          value: selectionGroup
+          description: Array of selected string values.
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    DocumentBuildMode:
+      type: string
+      description: Custom document model build mode.
+      enum:
+      - template
+      - neural
+      x-ms-enum:
+        name: DocumentBuildMode
+        modelAsString: true
+        values:
+        - name: template
+          value: template
+          description: Target documents with similar visual templates.
+        - name: neural
+          value: neural
+          description: Support documents with diverse visual templates.
+    DocumentAnalysisFeature:
+      type: string
+      description: Document analysis features to enable.
+      enum:
+      - ocrHighResolution
+      - languages
+      - barcodes
+      - formulas
+      - keyValuePairs
+      - styleFont
+      - queryFields
+      x-ms-enum:
+        name: DocumentAnalysisFeature
+        modelAsString: true
+        values:
+        - name: ocrHighResolution
+          value: ocrHighResolution
+          description: Perform OCR at a higher resolution to handle documents with fine print.
+        - name: languages
+          value: languages
+          description: Enable the detection of the text content language.
+        - name: barcodes
+          value: barcodes
+          description: Enable the detection of barcodes in the document.
+        - name: formulas
+          value: formulas
+          description: Enable the detection of mathematical expressions in the document.
+        - name: keyValuePairs
+          value: keyValuePairs
+          description: Enable the detection of general key value pairs (form fields) in the document.
+        - name: styleFont
+          value: styleFont
+          description: Enable the recognition of various font styles.
+        - name: queryFields
+          value: queryFields
+          description: Enable the extraction of additional fields via the queryFields query parameter.
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
+    DocumentFieldSchema:
+      type: object
+      description: Description of the field semantic schema using a JSON Schema style syntax.
+      properties:
+        type:
+          $ref: '#/components/schemas/DocumentFieldType'
+          description: Semantic data type of the field value.
+        description:
+          type: string
+          description: Field description.
+          maxLength: 4096
+        example:
+          type: string
+          description: Example field content.
+        items:
+          $ref: '#/components/schemas/DocumentFieldSchema'
+          description: Field type schema of each array element.
+        properties:
+          type: object
+          description: Named sub-fields of the object field.
+          additionalProperties:
+            $ref: '#/components/schemas/DocumentFieldSchema'
+      required:
+      - type
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -129,67 +295,6 @@ components:
       - modelId
       - classifierId
       - docTypes
-    DocumentAnalysisFeature:
-      type: string
-      description: Document analysis features to enable.
-      enum:
-      - ocrHighResolution
-      - languages
-      - barcodes
-      - formulas
-      - keyValuePairs
-      - styleFont
-      - queryFields
-      x-ms-enum:
-        name: DocumentAnalysisFeature
-        modelAsString: true
-        values:
-        - name: ocrHighResolution
-          value: ocrHighResolution
-          description: Perform OCR at a higher resolution to handle documents with fine print.
-        - name: languages
-          value: languages
-          description: Enable the detection of the text content language.
-        - name: barcodes
-          value: barcodes
-          description: Enable the detection of barcodes in the document.
-        - name: formulas
-          value: formulas
-          description: Enable the detection of mathematical expressions in the document.
-        - name: keyValuePairs
-          value: keyValuePairs
-          description: Enable the detection of general key value pairs (form fields) in the document.
-        - name: styleFont
-          value: styleFont
-          description: Enable the recognition of various font styles.
-        - name: queryFields
-          value: queryFields
-          description: Enable the extraction of additional fields via the queryFields query parameter.
-    DocumentBuildMode:
-      type: string
-      description: Custom document model build mode.
-      enum:
-      - template
-      - neural
-      x-ms-enum:
-        name: DocumentBuildMode
-        modelAsString: true
-        values:
-        - name: template
-          value: template
-          description: Target documents with similar visual templates.
-        - name: neural
-          value: neural
-          description: Support documents with diverse visual templates.
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
     DocumentTypeDetails:
       type: object
       description: Document type info.
@@ -235,111 +340,6 @@ components:
           type: integer
           format: int32
           description: Maximum number of documents of specified type to analyze.  Default=all.
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
-    DocumentFieldSchema:
-      type: object
-      description: Description of the field semantic schema using a JSON Schema style syntax.
-      properties:
-        type:
-          $ref: '#/components/schemas/DocumentFieldType'
-          description: Semantic data type of the field value.
-        description:
-          type: string
-          description: Field description.
-          maxLength: 4096
-        example:
-          type: string
-          description: Example field content.
-        items:
-          $ref: '#/components/schemas/DocumentFieldSchema'
-          description: Field type schema of each array element.
-        properties:
-          type: object
-          description: Named sub-fields of the object field.
-          additionalProperties:
-            $ref: '#/components/schemas/DocumentFieldSchema'
-      required:
-      - type
-    DocumentFieldType:
-      type: string
-      description: Semantic data type of the field value.
-      enum:
-      - string
-      - date
-      - time
-      - phoneNumber
-      - number
-      - integer
-      - selectionMark
-      - countryRegion
-      - signature
-      - array
-      - object
-      - currency
-      - address
-      - boolean
-      - selectionGroup
-      x-ms-enum:
-        name: DocumentFieldType
-        modelAsString: true
-        values:
-        - name: string
-          value: string
-          description: Plain text.
-        - name: date
-          value: date
-          description: Date, normalized to ISO 8601 (YYYY-MM-DD) format.
-        - name: time
-          value: time
-          description: Time, normalized to ISO 8601 (hh:mm:ss) format.
-        - name: phoneNumber
-          value: phoneNumber
-          description: Phone number, normalized to E.164 (+{CountryCode}{SubscriberNumber}) format.
-        - name: number
-          value: number
-          description: Floating point number, normalized to double precision floating point.
-        - name: integer
-          value: integer
-          description: Integer number, normalized to 64-bit signed integer.
-        - name: selectionMark
-          value: selectionMark
-          description: Is field selected?
-        - name: countryRegion
-          value: countryRegion
-          description: Country/region, normalized to ISO 3166-1 alpha-3 format (ex. USA).
-        - name: signature
-          value: signature
-          description: Is signature present?
-        - name: array
-          value: array
-          description: List of subfields of the same type.
-        - name: object
-          value: object
-          description: Named list of subfields of potentially different types.
-        - name: currency
-          value: currency
-          description: Currency amount with optional currency symbol and unit.
-        - name: address
-          value: address
-          description: Parsed address.
-        - name: boolean
-          value: boolean
-          description: Boolean value, normalized to true or false.
-        - name: selectionGroup
-          value: selectionGroup
-          description: Array of selected string values.
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version
