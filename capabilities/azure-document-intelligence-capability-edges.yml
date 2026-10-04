@@ -1,0 +1,61 @@
+slug: azure-document-intelligence
+provider: Azure AI Document Intelligence
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Document Classifiers
+  spec_file: azure-document-intelligence-document-classifiers-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: GET /documentClassifiers/{classifierId}  DocumentClassifiers_GetClassifier; POST /documentClassifiers/{classifierId}:analyze  DocumentClassifiers_ClassifyDocumentFromStream
+  reason: Operations manage the lifecycle of trained document-classification models (list, get, delete,
+    copy) and run inference against them — AI/ML model lifecycle management.
+- tag: Document Classifiers:build
+  spec_file: azure-document-intelligence-document-classifiers-build-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /documentClassifiers:build  DocumentClassifiers_BuildClassifier  Document classifiers
+    build classifier
+  reason: Training/building a custom document classifier from a labelled blob source is ML model creation,
+    i.e. AI/ML model lifecycle management.
+- tag: Document Models
+  spec_file: azure-document-intelligence-document-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: GET /documentModels  DocumentModels_ListModels; POST /documentModels/{modelId}:analyze  DocumentModels_AnalyzeDocumentFromStream;
+    schema DocumentModelDetails
+  reason: Surface manages trained extraction models and executes inference (analyze, batch analyze, results)
+    — AI/ML model lifecycle and operation.
+- tag: Document Models:build
+  spec_file: azure-document-intelligence-document-models-build-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /documentModels:build  DocumentModels_BuildModel; schema BuildDocumentModelRequest, DocumentBuildMode
+  reason: Building a custom document extraction model from training data is ML model creation — AI management.
+- tag: Document Models:compose
+  spec_file: azure-document-intelligence-document-models-compose-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /documentModels:compose  DocumentModels_ComposeModel; schema ComposeDocumentModelRequest
+  reason: Composing multiple trained document models into one is model lifecycle management within an
+    AI service.

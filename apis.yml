@@ -261,6 +261,9 @@ apis:
   - type: ServiceLimits
     url: https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits
 common:
+  - type: CapabilityMap
+    url: capabilities/azure-document-intelligence-capability-edges.yml
+    name: Azure AI Document Intelligence Business Capability Map
   - type: AgenticAccess
     url: agentic-access/azure-document-intelligence-agentic-access.yml
   - type: VulnerabilityDisclosure
