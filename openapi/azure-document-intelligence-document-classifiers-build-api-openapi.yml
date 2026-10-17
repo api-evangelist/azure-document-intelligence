@@ -55,6 +55,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     AzureBlobContentSource:
       type: object
       description: Azure Blob Storage content.
@@ -68,20 +81,30 @@ components:
           description: Blob name prefix.
       required:
       - containerUrl
-    AzureBlobFileListContentSource:
+    DocumentIntelligenceError:
       type: object
-      description: File list in Azure Blob Storage.
+      description: The error object.
       properties:
-        containerUrl:
+        code:
           type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
+          description: One of a server-defined set of error codes.
+        message:
           type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
+          description: A human-readable representation of the error.
+        target:
+          type: string
+          description: The target of the error.
+        details:
+          type: array
+          description: An array of details about specific errors that led to this reported error.
+          items:
+            $ref: '#/components/schemas/DocumentIntelligenceError'
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: An object containing more specific information than the current object about the error.
       required:
-      - containerUrl
-      - fileList
+      - code
+      - message
     ContentSourceKind:
       type: string
       description: Type of content source.
@@ -127,28 +150,6 @@ components:
             document type.  Either azureBlobSource or azureBlobFileListSource must be
 
             specified.'
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
     BuildDocumentClassifierRequest:
       type: object
       description: Request body to build a new custom document classifier.
@@ -177,30 +178,29 @@ components:
       required:
       - classifierId
       - docTypes
-    DocumentIntelligenceError:
+    DocumentIntelligenceErrorResponse:
       type: object
-      description: The error object.
+      description: Error response object.
       properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        target:
-          type: string
-          description: The target of the error.
-        details:
-          type: array
-          description: An array of details about specific errors that led to this reported error.
-          items:
-            $ref: '#/components/schemas/DocumentIntelligenceError'
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: An object containing more specific information than the current object about the error.
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
       required:
-      - code
-      - message
+      - error
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version

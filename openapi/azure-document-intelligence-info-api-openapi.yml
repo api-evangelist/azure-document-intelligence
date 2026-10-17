@@ -39,36 +39,7 @@ paths:
       summary: Miscellaneous operations get resource details
       x-summary-source: derived
 components:
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   schemas:
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceResourceDetails:
-      type: object
-      description: General information regarding the current resource.
-      properties:
-        customDocumentModels:
-          $ref: '#/components/schemas/CustomDocumentModelsDetails'
-          description: Details regarding custom document models.
-      required:
-      - customDocumentModels
     DocumentIntelligenceInnerError:
       type: object
       description: An object containing more specific information about the error.
@@ -82,21 +53,15 @@ components:
         innererror:
           $ref: '#/components/schemas/DocumentIntelligenceInnerError'
           description: Inner error.
-    CustomDocumentModelsDetails:
+    DocumentIntelligenceResourceDetails:
       type: object
-      description: Details regarding custom document models.
+      description: General information regarding the current resource.
       properties:
-        count:
-          type: integer
-          format: int32
-          description: Number of custom document models in the current resource.
-        limit:
-          type: integer
-          format: int32
-          description: Maximum number of custom document models supported in the current resource.
+        customDocumentModels:
+          $ref: '#/components/schemas/CustomDocumentModelsDetails'
+          description: Details regarding custom document models.
       required:
-      - count
-      - limit
+      - customDocumentModels
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -121,6 +86,41 @@ components:
       required:
       - code
       - message
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    CustomDocumentModelsDetails:
+      type: object
+      description: Details regarding custom document models.
+      properties:
+        count:
+          type: integer
+          format: int32
+          description: Number of custom document models in the current resource.
+        limit:
+          type: integer
+          format: int32
+          description: Maximum number of custom document models supported in the current resource.
+      required:
+      - count
+      - limit
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

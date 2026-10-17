@@ -55,6 +55,19 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    DocumentIntelligenceInnerError:
+      type: object
+      description: An object containing more specific information about the error.
+      properties:
+        code:
+          type: string
+          description: One of a server-defined set of error codes.
+        message:
+          type: string
+          description: A human-readable representation of the error.
+        innererror:
+          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
+          description: Inner error.
     AzureBlobContentSource:
       type: object
       description: Azure Blob Storage content.
@@ -68,20 +81,6 @@ components:
           description: Blob name prefix.
       required:
       - containerUrl
-    AzureBlobFileListContentSource:
-      type: object
-      description: File list in Azure Blob Storage.
-      properties:
-        containerUrl:
-          type: string
-          format: uri
-          description: Azure Blob Storage container URL.
-        fileList:
-          type: string
-          description: Path to a JSONL file within the container specifying a subset of documents.
-      required:
-      - containerUrl
-      - fileList
     DocumentBuildMode:
       type: string
       description: Custom document model build mode.
@@ -98,28 +97,6 @@ components:
         - name: neural
           value: neural
           description: Support documents with diverse visual templates.
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
-    DocumentIntelligenceInnerError:
-      type: object
-      description: An object containing more specific information about the error.
-      properties:
-        code:
-          type: string
-          description: One of a server-defined set of error codes.
-        message:
-          type: string
-          description: A human-readable representation of the error.
-        innererror:
-          $ref: '#/components/schemas/DocumentIntelligenceInnerError'
-          description: Inner error.
     DocumentIntelligenceError:
       type: object
       description: The error object.
@@ -186,6 +163,29 @@ components:
       required:
       - modelId
       - buildMode
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    AzureBlobFileListContentSource:
+      type: object
+      description: File list in Azure Blob Storage.
+      properties:
+        containerUrl:
+          type: string
+          format: uri
+          description: Azure Blob Storage container URL.
+        fileList:
+          type: string
+          description: Path to a JSONL file within the container specifying a subset of documents.
+      required:
+      - containerUrl
+      - fileList
   parameters:
     Azure.Core.Foundations.ApiVersionParameter:
       name: api-version

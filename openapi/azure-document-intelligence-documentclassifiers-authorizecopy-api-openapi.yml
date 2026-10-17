@@ -48,27 +48,7 @@ paths:
       summary: Document classifiers authorize classifier copy
       x-summary-source: derived
 components:
-  parameters:
-    Azure.Core.Foundations.ApiVersionParameter:
-      name: api-version
-      in: query
-      description: The API version to use for this operation.
-      required: true
-      x-ms-parameter-location: method
-      x-ms-client-name: apiVersion
-      schema:
-        type: string
-        minLength: 1
   schemas:
-    DocumentIntelligenceErrorResponse:
-      type: object
-      description: Error response object.
-      properties:
-        error:
-          $ref: '#/components/schemas/DocumentIntelligenceError'
-          description: Error info.
-      required:
-      - error
     DocumentIntelligenceInnerError:
       type: object
       description: An object containing more specific information about the error.
@@ -82,25 +62,6 @@ components:
         innererror:
           $ref: '#/components/schemas/DocumentIntelligenceInnerError'
           description: Inner error.
-    AuthorizeClassifierCopyRequest:
-      type: object
-      description: Request body to authorize document classifier copy.
-      properties:
-        classifierId:
-          type: string
-          description: Unique document classifier name.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
-        description:
-          type: string
-          description: Document classifier description.
-          maxLength: 4096
-        tags:
-          type: object
-          description: List of key-value tag attributes associated with the document classifier.
-          additionalProperties:
-            type: string
-      required:
-      - classifierId
     ClassifierCopyAuthorization:
       type: object
       description: 'Authorization to copy a document classifier to the specified target resource and
@@ -161,6 +122,45 @@ components:
       required:
       - code
       - message
+    DocumentIntelligenceErrorResponse:
+      type: object
+      description: Error response object.
+      properties:
+        error:
+          $ref: '#/components/schemas/DocumentIntelligenceError'
+          description: Error info.
+      required:
+      - error
+    AuthorizeClassifierCopyRequest:
+      type: object
+      description: Request body to authorize document classifier copy.
+      properties:
+        classifierId:
+          type: string
+          description: Unique document classifier name.
+          pattern: ^[a-zA-Z0-9][a-zA-Z0-9._~-]{1,63}$
+        description:
+          type: string
+          description: Document classifier description.
+          maxLength: 4096
+        tags:
+          type: object
+          description: List of key-value tag attributes associated with the document classifier.
+          additionalProperties:
+            type: string
+      required:
+      - classifierId
+  parameters:
+    Azure.Core.Foundations.ApiVersionParameter:
+      name: api-version
+      in: query
+      description: The API version to use for this operation.
+      required: true
+      x-ms-parameter-location: method
+      x-ms-client-name: apiVersion
+      schema:
+        type: string
+        minLength: 1
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
