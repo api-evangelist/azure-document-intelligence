@@ -1,4 +1,4 @@
-# Azure AI Document Intelligence (azure-document-intelligence)
+# Azure AI Document Intelligence
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,65 +66,138 @@
 
 Azure AI Document Intelligence (formerly Form Recognizer) is Microsoft's cloud document understanding service. It exposes prebuilt models for invoices, receipts, IDs, business cards, tax forms and contracts, plus a layout/OCR Read model and a Custom-model framework for fine-tuned extraction. The 2024- 11-30 GA REST API is the current stable surface; preview APIs add Custom Generative Extraction.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/azure-document-intelligence/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/azure-document-intelligence/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Document AI · Microsoft Azure · Intelligent Document Processing · OCR · Microsoft · REST
 
-## Tags
+## Azure AI Document Intelligence on APIs.io
 
-- AI
-- Document AI
-- Azure
-- IDP
-- OCR
-- Microsoft
-- REST
+Everything profiled for Azure AI Document Intelligence is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/azure-document-intelligence/](https://apis.io/providers/azure-document-intelligence/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (9)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-19
+- [Azure AI Document Intelligence DocumentClassifiers:authorizeCopy API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-documentclassifiers-authorizecopy-api/) — The DocumentClassifiers:authorizeCopy API from Azure AI Document Intelligence — 1 operation(s) for documentclassifiers:authorizecopy.
+- [Azure AI Document Intelligence Info API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-info-api/) — The Info API from Azure AI Document Intelligence — 1 operation(s) for info.
+- [Azure AI Document Intelligence Operations API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-operations-api/) — The Operations API from Azure AI Document Intelligence — 2 operation(s) for operations.
+- [Azure AI Document Intelligence Document Classifiers API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-classifiers-api/) — The Document Classifiers API from Azure AI Document Intelligence — 5 operation(s) for document classifiers.
+- [Azure AI Document Intelligence Document Classifiers:build API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-classifiers-build-api/) — The Document Classifiers:build API from Azure AI Document Intelligence — 1 operation(s) for document classifiers:build.
+- [Azure AI Document Intelligence Document Models API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-models-api/) — The Document Models API from Azure AI Document Intelligence — 10 operation(s) for document models.
+- [Azure AI Document Intelligence Document Models:authorize Copy API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-models-authorize-copy-api/) — The Document Models:authorize Copy API from Azure AI Document Intelligence — 1 operation(s) for document models:authorize copy.
+- [Azure AI Document Intelligence Document Models:build API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-models-build-api/) — The Document Models:build API from Azure AI Document Intelligence — 1 operation(s) for document models:build.
+- [Azure AI Document Intelligence Document Models:compose API](https://apis.io/apis/azure-document-intelligence/azure-document-intelligence-document-models-compose-api/) — The Document Models:compose API from Azure AI Document Intelligence — 1 operation(s) for document models:compose.
 
-## APIs
+### Published properties
 
-### Azure AI Document Intelligence REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for document Read (OCR), Layout, prebuilt models (Invoice, Receipt, ID, Business Card, W2, Contract, Health Insurance Card etc.), Custom Classifiers and Custom Extractors. Authenticated via Azure subscription key or Microsoft Entra ID (formerly Azure AD).
+#### Agentic access (1)
 
-- **Human URL:** [https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/)
-- **Base URL:** `https://<your-resource>.cognitiveservices.azure.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Azure Document Intelligence Agentic Access](https://apis.io/agentic-access/azure-document-intelligence/azure-document-intelligence-agentic-access/)
 
-- REST
-- OCR
-- Layout
-- Custom Models
-- Prebuilt Models
-- Azure
+#### Collections (10)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/)
-- [API Reference](https://learn.microsoft.com/en-us/rest/api/aiservices/document-models/)
-- [OpenAPI](openapi/azure-document-intelligence-openapi.json) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/azure-document-intelligence.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/azure-document-intelligence.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Open A P I Source](https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence)
-- [SDK](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/sdk-overview)
-- [Service Limits](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/service-limits)
+- [Document Intelligence (formerly Form Recognizer)](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentclassifiers-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:authorizeCopy API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentclassifiers-authorizecopy-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentClassifiers:build API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentclassifiers-build-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentmodels-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:authorizeCopy API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentmodels-authorizecopy-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:build API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentmodels-build-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers DocumentModels:compose API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-documentmodels-compose-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers Info API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-info-api/)
+- [Document Intelligence (formerly Form Recognizer) DocumentClassifiers Operations API](https://apis.io/collections/azure-document-intelligence/open-azure-document-intelligence-operations-api/)
 
-## Common Properties
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Azure Document Intelligence Authentication](https://apis.io/security/azure-document-intelligence/azure-document-intelligence-authentication/)
+- [Azure Document Intelligence Domain Security](https://apis.io/security/azure-document-intelligence/azure-document-intelligence-domain-security/)
+- [Azure Document Intelligence Vulnerability Disclosure](https://apis.io/security/azure-document-intelligence/azure-document-intelligence-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Azure Document Intelligence Scopes](https://apis.io/scopes/azure-document-intelligence/azure-document-intelligence-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Azure Document Intelligence Plans Pricing](https://apis.io/plans/azure-document-intelligence/azure-document-intelligence-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Azure Document Intelligence Rate Limits](https://apis.io/rate-limits/azure-document-intelligence/azure-document-intelligence-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Azure Document Intelligence Finops](https://apis.io/finops/azure-document-intelligence/azure-document-intelligence-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)
 - [Documentation](https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/)
 - [Pricing](https://azure.microsoft.com/en-us/pricing/details/document-intelligence/)
-- [Git Hub](https://github.com/Azure/azure-rest-api-specs/tree/main/specification/ai/data-plane/DocumentIntelligence)
-- [Azure Portal](https://portal.azure.com/)
-- [Plans](plans/azure-document-intelligence-plans-pricing.yml)
-- [Rate Limits](rate-limits/azure-document-intelligence-rate-limits.yml)
-- [Fin Ops](finops/azure-document-intelligence-finops.yml)
-- [L L Ms Txt](https://portal.azure.com/llms.txt)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 31.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.4 |
+| Contract quality | 40.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 35.7 |
+| Access clarity | 18.4 |
+
+**Agent readiness 24.5** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 25.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/azure-document-intelligence/](https://apis.io/providers/azure-document-intelligence/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Azure AI Document Intelligence: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/azure-document-intelligence/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
